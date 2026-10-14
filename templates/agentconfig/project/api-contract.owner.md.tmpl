@@ -1,0 +1,37 @@
+# API Contract — {{REPO_NAME}} (pemilik kontrak)
+
+Konvensi kontrak API yang dimiliki repo ini: envelope, status code, auth dan identitas pemanggil, matriks akses, pagination, encoding data, dan penyimpangan yang diketahui. Baca sebelum membuat/mengubah endpoint, guard role, bentuk request/response, atau konstanta yang dipakai konsumen.
+
+> **Daftar route & aturan bisnis kanonik:** <!-- AI: path dokumen spec di repo ini (mis. `docs/api-spec.md`) atau file OpenAPI. Jika belum ada, tulis "TODO — buat dokumen spec" dan rencanakan di technical-requirements.md. --> File ini tidak menyalin daftar route. Aturan umum desain API ada di `../standards/api-design.md`.
+
+## Dasar
+
+| Aspek | Kontrak |
+|---|---|
+| Base path | <!-- AI: mis. /api --> |
+| Envelope sukses | <!-- AI: mis. { isSuccess: true, data } --> |
+| Envelope error | <!-- AI: mis. { isSuccess: false, message, errorCode?, errors? } --> |
+| Auth | <!-- AI: Bearer JWT / cookie sesi; masa berlaku; pengecekan status akun --> |
+| Konsumen | <!-- AI: repo/app yang memakai API ini --> |
+
+## Matriks akses
+
+| Domain / resource | Publik | <!-- AI: role 1 --> | <!-- AI: role 2 --> |
+|---|---|---|---|
+<!-- AI: satu baris per domain; isi "baca", "tulis milik sendiri", "semua", atau "—". Ini sumber kebenaran role × endpoint (../standards/security.md). -->
+
+## Pagination & list
+
+<!-- AI: parameter, batas maksimum, bentuk response list. -->
+
+## Encoding data
+
+<!-- AI: uang/desimal, tanggal kalender, jam dinding vs instant, enum, file/URL. -->
+
+## Konstanta yang harus sinkron dengan konsumen
+
+<!-- AI: enum status, kode error, batas kuota, dll. yang juga di-hardcode di frontend. "—" jika tidak ada. -->
+
+## Penyimpangan yang diketahui
+
+<!-- AI: endpoint yang belum mengikuti standards/api-design.md, dicatat agar konsumen tahu. "—" untuk project baru. -->

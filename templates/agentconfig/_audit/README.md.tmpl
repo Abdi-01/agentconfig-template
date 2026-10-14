@@ -1,0 +1,19 @@
+# _audit
+
+Snapshot hasil audit kode dan cadangan instruksi agent lama untuk repo ini. Baca saat mencari bukti (path, commit, angka) di balik suatu aturan, saat melihat temuan yang belum dimigrasi, atau saat membandingkan dengan audit project lain.
+
+## Aturan bersama
+
+- Laporan audit adalah snapshot per tanggal. JANGAN mengeditnya agar mencerminkan kode terbaru; tambahan yang diizinkan hanya bagian keputusan dan addendum bertanggal di akhir laporan.
+- Audit pertama disimpan sebagai `audit-report.md`; audit ulang sebagai `audit-report-YYYY-MM-DD.md` (saat versi mayor stack berubah, struktur folder berubah besar, atau sebelum mengusulkan perubahan template).
+- ID `K-`, `INK-`, dan `GAP-` bersifat lokal per laporan. ID aturan template memakai registry prefix di `../standards/README.md`.
+- `legacy/` berisi instruksi agent sebelum agentconfig dipasang (AGENTS.md, CLAUDE.md lama). Aturan yang masih relevan dipindah ke `project/` atau diusulkan ke template; folder ini dihapus setelah user menyetujui.
+
+## File
+
+| Baca | Saat |
+|---|---|
+| `audit-report.md` | jika ada: mencari bukti aturan, inkonsistensi (INK) dan gap (GAP) yang belum dimigrasi |
+| `legacy/` | jika ada: memastikan tidak ada aturan lama yang hilang saat migrasi |
+
+Repo ini dibuat dari template {{TEMPLATE_VERSION}} pada {{DATE}}. Jika belum ada `audit-report.md`, repo belum pernah diaudit (wajar untuk project baru).

@@ -1,0 +1,46 @@
+{
+  "$comment": "Peta dependency package.json -> file di templates/agentconfig/standards/stack/. Tambah stack baru: buat file stack, tambah entri di sini, tambah baris di standards/stack/README.md, naikkan VERSION.",
+  "stacks": [
+    {
+      "file": "nextjs-16-app-router.md",
+      "side": "frontend",
+      "match": { "all": ["next"] },
+      "baseline": { "next": 16 }
+    },
+    {
+      "file": "tanstack-query-axios.md",
+      "side": "frontend",
+      "match": { "any": ["@tanstack/react-query", "axios"] },
+      "requiresSide": "frontend",
+      "baseline": { "@tanstack/react-query": 5, "axios": 1 }
+    },
+    {
+      "file": "shadcn-base-ui-tailwind4.md",
+      "side": "frontend",
+      "match": { "any": ["@base-ui/react", "shadcn", "@shadcn/react"], "all": ["tailwindcss"] },
+      "baseline": { "tailwindcss": 4 }
+    },
+    {
+      "file": "express-5-layered-api.md",
+      "side": "backend",
+      "match": { "all": ["express"] },
+      "baseline": { "express": 5 }
+    },
+    {
+      "file": "prisma-7-postgres.md",
+      "side": "backend",
+      "match": { "any": ["prisma", "@prisma/client"] },
+      "baseline": { "prisma": 7, "@prisma/client": 7 }
+    },
+    {
+      "file": "node-ts7-jest-vercel.md",
+      "side": "backend",
+      "match": { "all": ["jest"] },
+      "requiresSide": "backend",
+      "baseline": { "jest": 30, "typescript": 7 }
+    }
+  ],
+  "frontendSignals": ["next", "react", "react-dom", "vue", "nuxt", "svelte", "@sveltejs/kit", "vite", "astro", "@angular/core", "solid-js"],
+  "backendSignals": ["express", "fastify", "@nestjs/core", "koa", "hono", "@hapi/hapi", "prisma", "@prisma/client", "mongoose", "drizzle-orm", "sequelize", "typeorm", "mysql2", "pg"],
+  "uncataloguedNotable": ["vue", "nuxt", "svelte", "@sveltejs/kit", "astro", "@angular/core", "solid-js", "fastify", "@nestjs/core", "koa", "hono", "mongoose", "drizzle-orm", "sequelize", "typeorm", "mysql2", "vitest", "react-hook-form", "zod", "@reduxjs/toolkit", "zustand", "swr", "@trpc/server", "graphql", "socket.io", "bullmq", "firebase", "@supabase/supabase-js", "styled-components", "@mui/material", "@chakra-ui/react", "antd"]
+}

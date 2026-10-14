@@ -1,0 +1,39 @@
+# Architecture — {{REPO_NAME}}
+
+Stack yang dipakai, posisi repo dalam sistem, struktur folder, alur data/request, dan integrasi. Baca sebelum menambah file/folder/fitur/provider/middleware/integrasi, atau mengubah alur data, auth, cache, logging, atau deploy.
+
+## Stack yang dipakai
+
+File stack di `../standards/stack/` yang berlaku untuk repo ini (file stack lain diabaikan):
+
+{{STACK_FILES}}
+
+<!-- AI: jika ada dependency penting tanpa file stack (hasil detect "uncatalogued"), sebutkan di sini dengan label [TIDAK ADA — rekomendasi] dan catat aturan sementaranya di decisions.md. Hapus penanda ini. -->
+
+## Posisi dalam sistem
+
+<!-- AI: diagram teks singkat topologi (repo ini, repo sibling, backend/API, layanan pihak ketiga, database). -->
+
+## Struktur folder
+
+<!-- AI: pohon folder sampai level yang menjelaskan layering, satu baris keterangan per folder. Project baru: struktur target dari file stack, label [PRD]/[KEPUTUSAN]. Project lama: struktur aktual, label [TERBUKTI]. -->
+
+## Alur data / request
+
+<!-- AI: frontend: dari page → view → section → hook → service → API, plus Server vs Client Component. Backend: router → middleware → controller → service → repository → DB. Sebutkan di mana validasi, otorisasi, dan pemetaan error terjadi. -->
+
+## Auth & otorisasi
+
+<!-- AI: mekanisme login, penyimpanan token/sesi, role, dan di mana enforcement terjadi (server). -->
+
+## Integrasi pihak ketiga
+
+<!-- AI: tabel layanan (penyimpanan file, email, payment, AI, analytics, feature flag) → modul client → env yang dipakai. "—" jika tidak ada. -->
+
+## Error handling, logging & observability
+
+<!-- AI: error boundary/handler global, logger, error reporting. Tandai [TIDAK ADA — rekomendasi] jika belum ada. -->
+
+## Deploy
+
+<!-- AI: platform, cara deploy (otomatis dari branch apa / manual), urutan deploy antar repo, job terjadwal. -->

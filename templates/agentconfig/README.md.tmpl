@@ -1,0 +1,56 @@
+# agentconfig
+
+Konfigurasi dan dokumentasi untuk AI coding agent di repo ini: standar reusable (`standards/`), pengetahuan spesifik project (`project/`), dan hasil audit (`_audit/`). Baca file ini untuk memahami struktur, legenda label, versi template, dan cara memperbarui template.
+
+- **Dibuat di repo ini:** {{DATE}}.
+- **Versi template yang dipakai:** {{TEMPLATE_VERSION}}.
+- **Tipe project:** {{PROJECT_TYPE}}.
+
+## Versi template
+
+`standards/` berasal dari repo `agentconfig-template` dan WAJIB identik dengan versi yang tercatat di atas (dicek oleh `.template-lock.json`). Riwayat perubahan ada di `CHANGELOG.md` repo template. Memperbarui ke versi baru: jalankan skill `agentconfig` mode **sync** di repo ini — jangan menyalin file secara manual.
+
+## Struktur
+
+| Path | Isi | Reusable? |
+|---|---|---|
+| `standards/` | aturan coding, security, desain API, git, Definition of Done, testing, stack | Ya — identik di semua project dengan versi template yang sama |
+| `project/` | PRD, kebutuhan teknis, arsitektur, kontrak API, data model, design system, keputusan untuk repo ini | Tidak — ditulis per project |
+| `_audit/` | laporan audit kode (jika ada) dan cadangan instruksi agent lama | Tidak — snapshot per project |
+| `.template-lock.json` | hash `standards/` saat terakhir disalin dari template | Dikelola skill; jangan diedit |
+
+## Legenda label
+
+| Label | Arti |
+|---|---|
+| `[TERBUKTI]` | konsisten di kode |
+| `[DISIMPULKAN]` | pola dominan, ada pengecualian |
+| `[TIDAK ADA]` | belum ada di project; ditandai TODO, tidak dikarang |
+| `[DEFAULT]` | sama dengan boilerplate framework/tool (create-next-app, shadcn init, `tsc --init`, `prisma init`, default library) |
+| `[KUSTOM]` | menyimpang dari default — keputusan sadar |
+| `[TIDAK ADA — rekomendasi]` | standar yang disarankan tapi belum diterapkan |
+| `[PRD]` | berasal dari PRD; belum terbukti di kode |
+| `[KEPUTUSAN]` | dijawab user saat setup atau saat kerja; rincian di `project/decisions.md` |
+
+Saat fitur berlabel `[PRD]` sudah dibangun, labelnya diganti `[TERBUKTI]` beserta path bukti.
+
+## Aturan bersama
+
+- Prioritas: config tool > `project/` > `standards/`. Penyimpangan `project/` dari `standards/` dicatat di `project/decisions.md`.
+- Setiap folder punya `README.md` berisi aturan bersama dan peta "baca X saat Y". Aturan bersama tidak diulang di sub-file.
+- Setiap file diawali 1–2 kalimat: tujuan file dan kapan dibaca.
+- Bahasa dokumen: Bahasa Indonesia; istilah teknis tetap Bahasa Inggris.
+- Konvensi path: path kode relatif terhadap root repo, dan `../<repo>/…` menunjuk repo sibling di workspace yang sama. Path dokumen relatif terhadap file yang menyebutnya, kecuali `standards/…`, `project/…`, dan `_audit/…` yang selalu berarti folder di `agentconfig/`.
+- `AGENTS.md` di root repo adalah router ringkas (≤100 baris di luar blok framework) yang menunjuk ke README folder; `CLAUDE.md` hanya berisi `@AGENTS.md`.
+
+## Peta
+
+| Baca | Saat |
+|---|---|
+| `standards/README.md` | sebelum menulis/mengubah kode, commit, atau menyatakan tugas selesai |
+| `project/README.md` | sebelum mengerjakan fitur, mengubah arsitektur/kontrak/data/UI, atau mengambil keputusan teknis di repo ini |
+| `_audit/README.md` | saat mencari bukti di balik suatu aturan, atau membandingkan dengan audit project lain |
+
+## Topologi repo
+
+<!-- AI: tulis topologi (1 frontend; frontend + backend; 2 frontend + 1 backend; dst.), nama repo sibling beserta perannya, dan repo pemilik kontrak API kanonik + path dokumennya. Untuk repo tunggal tanpa API eksternal, tulis "Repo tunggal" dan hapus kalimat tentang kontrak. -->

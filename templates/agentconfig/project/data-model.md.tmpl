@@ -1,0 +1,27 @@
+# Data Model — {{REPO_NAME}}
+
+Konvensi schema, kelompok model, invariant bisnis, constraint, objek SQL manual, migration, dan seed untuk repo ini. Baca sebelum mengubah schema, membuat migration, menulis query, atau menjalankan seed.
+
+> **Sumber kebenaran:** <!-- AI: file schema (mis. `prisma/schema.prisma`) dan ERD di dokumen spec. --> Keduanya WAJIB diubah bersamaan. File ini tidak menyalin field per model.
+
+## Konvensi
+
+<!-- AI: penamaan model/kolom/tabel, tipe id, timestamp, soft-disable (isActive), tipe uang/desimal/tanggal. Rujuk file stack ORM di ../standards/stack/; tulis hanya penyimpangan atau pilihan spesifik repo ini. -->
+
+## Kelompok model
+
+| Kelompok | Model | Keterangan |
+|---|---|---|
+<!-- AI: kelompokkan per domain dari PRD. Project baru: entitas yang direncanakan, label [PRD]. -->
+
+## Invariant bisnis (JANGAN dilanggar tanpa mengubah PRD/spec)
+
+<!-- AI: aturan "tidak boleh ganda", "hanya sekali", kuota, transisi status, kepemilikan. Untuk tiap invariant: cara penegakannya di database (constraint/lock/transaksi). -->
+
+## Constraint, index & objek SQL manual
+
+<!-- AI: unique/partial index, index pencarian, extension, trigger yang tidak terlihat di schema. "—" untuk project baru. -->
+
+## Migration & seed
+
+<!-- AI: cara membuat dan menerapkan migration per lingkungan; isi seed (data contoh, akun bawaan) dan larangan menjalankannya ke production. -->

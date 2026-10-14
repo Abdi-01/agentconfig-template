@@ -1,0 +1,27 @@
+# API Contract (sisi konsumen) — {{REPO_NAME}}
+
+Ringkasan kontrak API yang dipakai repo ini: envelope, error, auth, pagination, kekhususan data, dan daftar endpoint. Baca sebelum memanggil endpoint baru, mengubah service/adapter, atau saat response tidak sesuai harapan.
+
+<!-- AI: jika repo ini tidak memanggil API sama sekali, hapus file ini dan barisnya di README.md. -->
+
+> **Sumber kanonik:** <!-- AI: path dokumen kontrak di repo pemiliknya (mis. `../<repo-backend>/docs/api-spec.md`) atau URL OpenAPI. --> File ini hanya ringkasan dari sisi konsumen; jika bertentangan, sumber kanonik yang benar.
+
+## Dasar
+
+| Aspek | Kontrak | Bukti |
+|---|---|---|
+| Base URL | <!-- AI: env var + nilai dev --> | |
+| Envelope sukses | <!-- AI --> | |
+| Error | <!-- AI: bentuk body error, errorCode jika ada --> | |
+| Auth | <!-- AI: header/cookie, penyimpanan token, penanganan 401 --> | |
+| Pagination | <!-- AI --> | |
+
+## Kekhususan data (wajib ditangani adapter)
+
+<!-- AI: desimal sebagai string, format tanggal/jam (instant vs wall-clock), enum, field nullable, semantik replace relasi array, dll. "—" jika belum diketahui. -->
+
+## Endpoint yang dipakai
+
+| Method & path | Dipakai di (service) | Auth/role |
+|---|---|---|
+<!-- AI: project baru: endpoint yang dibutuhkan fitur MVP, label [PRD]. -->

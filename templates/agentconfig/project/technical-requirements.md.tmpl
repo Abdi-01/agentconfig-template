@@ -1,0 +1,57 @@
+# Technical Requirements — {{REPO_NAME}}
+
+Versi, environment, lingkungan, locale, NFR, baseline security, dan daftar prioritas perbaikan untuk repo ini. Baca saat butuh env var, versi dependency, target performa/security/aksesibilitas, format locale, kondisi lingkungan, atau saat memilih tech debt yang akan dikerjakan.
+
+## Runtime & tooling
+
+| Item | Nilai | Status |
+|---|---|---|
+<!-- AI: package manager, Node.js (engines/.nvmrc), framework + versi mayor, TypeScript, library kunci, port dev, hosting. Isi dari package.json; yang belum ada beri [TIDAK ADA]. -->
+
+## Environment variables
+
+| Variabel | Scope | Dipakai untuk | Di file contoh env |
+|---|---|---|---|
+<!-- AI: semua env yang dibaca kode atau yang dibutuhkan PRD (scope: publik/server/secret). Project baru: env yang direncanakan, label [PRD]/[KEPUTUSAN]. -->
+
+## Lingkungan
+
+<!-- AI: daftar lingkungan (local/dev, staging, production), database/layanan per lingkungan, dan siapa yang mengatur env production. Jika dev dan production berbagi database atau data nyata ada di dev, tulis sebagai peringatan tebal + aturan "JANGAN migrate/seed/reset tanpa konfirmasi user". -->
+
+## Locale & format
+
+<!-- AI: bahasa UI dan pesan error, locale (mis. id-ID), mata uang, timezone produk (mis. Asia/Jakarta), bahasa komentar kode, bahasa subject commit. Rujuk ../standards/coding-style.md U-03. -->
+
+## Non-functional requirements
+
+| ID | Requirement | Target | Status |
+|---|---|---|---|
+<!-- AI: performa (budget per halaman/endpoint), ketersediaan, aksesibilitas (mis. WCAG 2.1 AA), SEO, maintainability (cakupan test), dari PRD. Target harus terukur; jika PRD tidak memberi angka, usulkan dan beri label [KEPUTUSAN] setelah disetujui. -->
+
+## Baseline security
+
+- **Level OWASP ASVS target:** <!-- AI: L1 / L2 / L3 + alasan (data pribadi/medis/finansial → minimal L2). -->
+- **Regulasi data:** <!-- AI: mis. UU PDP (UU 27/2022) untuk data pribadi; sebutkan kategori data spesifik jika ada (kesehatan, keuangan, anak). "—" jika tidak menyimpan data pribadi. -->
+- **Audit/pentest:** <!-- AI: jadwal (mis. sebelum go-live dan tiap rilis mayor) atau "TODO — belum dijadwalkan". -->
+- Acuan versi OWASP dan aturan kode: `../standards/security.md`.
+
+## Status test
+
+| Level | Tool | Status |
+|---|---|---|
+<!-- AI: unit, integration, e2e, performance, security — tool dari ../standards/testing/README.md dan file stack; status [TERBUKTI]/[TIDAK ADA — rekomendasi]. -->
+
+## Syarat go-live
+
+<!-- AI: checklist yang WAJIB selesai sebelum production dengan data nyata (security P0, pemisahan DB, backup, monitoring, dll.). Format "- [ ] …". "—" jika sudah production atau tidak relevan. -->
+
+## Prioritas perbaikan & tech debt
+
+### P0
+<!-- AI: "- [ ] …" — risiko security/data atau blocker. "—" jika tidak ada. -->
+
+### P1
+<!-- AI: "- [ ] …" — tooling (lint, test, CI), bug penting, gap NFR. -->
+
+### P2
+<!-- AI: "- [ ] …" — migrasi kode ke standards/ saat file disentuh, perapian. -->

@@ -1,0 +1,30 @@
+{{FRAMEWORK_BLOCKS}}
+
+# AGENTS.md — {{REPO_NAME}}
+
+Router untuk AI coding agent (dan manusia) di repo ini. Detail aturan ada di `agentconfig/`, bukan di file ini. Blok yang diapit `<!-- BEGIN:… -->`/`<!-- END:… -->` dikelola otomatis oleh framework; jangan diubah.
+
+## Overview
+
+<!-- AI: 3–5 kalimat. Apa produknya, untuk siapa, tipe repo ({{PROJECT_TYPE}}), stack inti beserta versi mayor, dan posisi repo ini di topologi (repo sibling, lokasi kontrak API kanonik). Tanpa detail yang sudah ada di agentconfig/. -->
+
+<!-- AI: opsional, satu blockquote untuk peringatan yang WAJIB diketahui sebelum menjalankan apa pun (mis. database lokal = produksi). Hapus penanda ini jika tidak ada. -->
+
+## Commands
+
+{{COMMANDS_TABLE}}
+
+<!-- AI: satu kalimat cara menyiapkan env (file contoh env → file env lokal). Hapus penanda ini setelah diisi. -->
+
+## Peta dokumen
+
+| Baca | Sebelum |
+|---|---|
+| `agentconfig/README.md` | pertama kali bekerja di repo ini (struktur, legenda label, versi template) |
+| `agentconfig/standards/README.md` | menulis/mengubah kode, membuat commit/PR, atau menyatakan tugas selesai |
+| `agentconfig/standards/stack/README.md` | memakai framework/library stack repo ini ({{STACK_FILE_NAMES}}) atau mengubah tooling |
+| `agentconfig/standards/testing/README.md` | menulis, mengubah, atau menjalankan test |
+| `agentconfig/project/README.md` | mengerjakan fitur, mengubah arsitektur/kontrak API/UI/data, atau mengambil keputusan teknis |
+| `agentconfig/_audit/README.md` | mencari bukti di balik suatu aturan, atau melihat temuan audit yang belum dimigrasi |
+
+Tugas belum selesai sebelum checklist Definition of Done (`agentconfig/standards/definition-of-done.md`) dijalankan.

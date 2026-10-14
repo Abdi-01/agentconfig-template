@@ -1,0 +1,23 @@
+# Decisions — {{REPO_NAME}}
+
+Keputusan teknis repo ini dengan format konteks → keputusan → konsekuensi. Baca sebelum mengubah pola yang sudah ada; tambahkan entri baru (nomor berikutnya, tidak pernah dipakai ulang) setiap ada keputusan teknis atau penyimpangan dari `../standards/`.
+
+Format entri:
+
+```
+### D-NN · <judul singkat> (<sumber: user/klien/audit>, <YYYY-MM-DD>)
+- **Konteks:** masalah atau kebutuhan.
+- **Keputusan:** yang dipilih (dan alternatif yang ditolak, jika penting).
+- **Konsekuensi:** dampak, risiko yang diterima, aturan turunan.
+```
+
+Status opsional di judul: `(menunggu konfirmasi klien)`, `(digantikan D-NN)`.
+
+---
+
+### D-01 · agentconfig dipasang dari template {{TEMPLATE_VERSION}} (setup, {{DATE}})
+- **Konteks:** aturan agent perlu konsisten lintas project dan terpisah dari pengetahuan spesifik repo.
+- **Keputusan:** `agentconfig/standards/` disalin identik dari template {{TEMPLATE_VERSION}}; pengetahuan repo di `agentconfig/project/`; tipe project **{{PROJECT_TYPE}}**.
+- **Konsekuensi:** `standards/` tidak diedit per project; penyimpangan dicatat di file ini; pembaruan lewat skill `agentconfig` mode sync.
+
+<!-- AI: tambahkan D-02 dst. dari jawaban gap-check saat setup (database, auth, hosting, state management, form, i18n, timezone, testing tool, dll.) — satu keputusan per entri, sumber "user, {{DATE}}". Project lama: keputusan yang terbaca dari kode/git, sumber "audit". Hapus penanda ini. -->
