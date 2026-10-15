@@ -84,8 +84,9 @@ Ringkas ke user:
 1. File yang dibuat (kelompokkan: router, standards (n file, versi), project).
 2. Keputusan yang tercatat (`D-xx`, satu baris per keputusan).
 3. TODO yang perlu user isi/putuskan, dikelompokkan per file.
-4. Untuk tipe `frontend-web`/`fullstack` tanpa `docs/design/`: lanjut ke skill desain yang tercatat di `docs/prd/_discovery.md` › Keputusan desain (`stitch-design` atau `figma-design`). Jika belum tercatat, tanyakan preferensinya dengan pilihan yang sama seperti `prd-writer` Fase 6 langkah 4 (Stitch · Figma agent menggambar · Figma desainer/desain sudah ada · tanpa desain khusus).
-5. Langkah berikutnya yang konkret, mis. tambah script `typecheck`/`test`, pasang Vitest/Playwright sesuai `standards/testing/README.md`, commit di branch `docs/agentconfig`.
+4. Untuk tipe `frontend-web`/`fullstack` tanpa `docs/design/`: lanjut ke skill desain yang tercatat di `docs/prd/_discovery.md` › Keputusan desain (`stitch-design` atau `figma-design`). Jika belum tercatat, tanyakan preferensinya dengan pilihan yang sama seperti `prd-writer` Fase 6 › Preferensi desain (Stitch · Figma agent menggambar · Figma desainer/desain sudah ada · tanpa desain khusus).
+5. Rencana delivery: jika `docs/delivery/plan.md` belum ada, tawarkan skill `delivery-plan` (milestone + task per FR) setelah desain.
+6. Langkah berikutnya yang konkret, mis. tambah script `typecheck`/`test`, pasang Vitest/Playwright sesuai `standards/testing/README.md`, commit di branch `docs/agentconfig`.
 
 Jangan commit atau push kecuali user minta. Jika diminta, satu commit `docs: add agentconfig from template <versi>`.
 

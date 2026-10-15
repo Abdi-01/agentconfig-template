@@ -55,4 +55,4 @@ for skill_dir in "$REPO_DIR"/skills/*/; do
   fi
 done
 
-[ "$MODE" = "uninstall" ] || echo "Selesai. Restart Claude Code, lalu cek dengan /prd-writer, /agentconfig, /stitch-design, dan /figma-design."
+[ "$MODE" = "uninstall" ] || echo "Selesai. Restart Claude Code, lalu cek dengan /prd-writer, /agentconfig, /stitch-design, /figma-design, dan /delivery-plan."

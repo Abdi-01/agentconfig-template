@@ -28,7 +28,7 @@ Lokasi output: di dalam git repo → `docs/prd/`; di luar repo → tanyakan, def
 
 ## Fase 1 — Intake
 
-Mode baru: tanyakan dalam satu pesan — nama produk & klien, masalah utama, target pengguna, tujuan bisnis, batasan (deadline, anggaran kasar, platform, bahasa).
+Mode baru: tanyakan dalam satu pesan — nama produk & klien, masalah utama, target pengguna, tujuan bisnis, batasan (deadline, anggaran kasar, platform, bahasa), dan **profil project** S/M/L (`LIFECYCLE.md` di root repo skill; usulkan berdasarkan jawaban). Profil S boleh berhenti di discovery ronde 1–3. Jika user butuh angka untuk penawaran sebelum PRD selesai, tawarkan `delivery-plan` mode estimasi.
 
 Mode susun dari bahan: baca semua bahan sampai habis (PDF/DOCX lewat skill pembaca file yang tersedia), lalu tampilkan tabel ringkas `Topik → Isi dari bahan → Sumber` dan kontradiksi yang ditemukan.
 
@@ -72,8 +72,9 @@ Laporkan ke user secara ringkas (bukan isi PRD): statistik dari `check-prd` (mod
 
 1. **Dokumen klien:** jika sesi punya tool dokumen bersama (mis. Claude Docs atau konektor Google Docs), buat dokumen dari `prd.md` yang final; jika tidak, tawarkan file `.docx`/`.pdf` lewat skill dokumen yang tersedia. Markdown tetap sumber kebenaran — perubahan berikutnya dilakukan di Markdown lalu dokumen dibuat ulang. Claude tidak mengirim apa pun ke klien; user yang mengirim.
 2. **Persetujuan:** saat klien menyetujui, isi tabel Persetujuan, ubah Status ke "Disetujui", naikkan versi ke `1.0`.
-3. **Serah ke agentconfig:** jika repo sudah punya `agentconfig/`, tawarkan memperbarui `agentconfig/project/prd.md` (status per FR). Jika belum, tawarkan menjalankan skill `agentconfig` mode init dengan PRD ini.
-4. **Preferensi desain** (produk ber-UI, setelah PRD disepakati): ⛔ tanyakan satu pertanyaan, catat jawabannya di `_discovery.md` › Keputusan desain:
+3. **Gate fase 1** (`LIFECYCLE.md`): PRD v1.0 disetujui dan `check-prd` tanpa error.
+4. **Serah ke agentconfig:** jika repo sudah punya `agentconfig/`, tawarkan memperbarui `agentconfig/project/prd.md` (status per FR). Jika belum, tawarkan menjalankan skill `agentconfig` mode init dengan PRD ini.
+5. **Preferensi desain** (produk ber-UI, setelah PRD disepakati): ⛔ tanyakan satu pertanyaan, catat jawabannya di `_discovery.md` › Keputusan desain:
 
    | Pilihan | Lanjut ke | Cocok jika |
    |---|---|---|
@@ -89,4 +90,4 @@ Laporkan ke user secara ringkas (bukan isi PRD): statistik dari `check-prd` (mod
 1. Baca `prd.md`, `_discovery.md`, dan permintaan perubahan. Petakan dampaknya: FR/NFR baru, diubah, dibatalkan; dampak ke §5 scope, §6 alur, §7 timeline.
 2. ⛔ Tampilkan daftar dampak dan usulan versi baru (aturan versi di writing-guide), tunggu persetujuan.
 3. Terapkan. FR baru mengambil nomor berikutnya di modulnya; FR yang dibatalkan dicoret (`~~FR-…~~`), tidak dihapus atau dipakai ulang. Tambah baris Riwayat versi dengan daftar ID terdampak.
-4. `check-prd.mjs`, lalu Fase 6 langkah 1 dan 3 (buat ulang dokumen klien; sinkronkan `agentconfig/project/prd.md` jika ada).
+4. `check-prd.mjs`, lalu Fase 6 langkah 1 dan 4 (buat ulang dokumen klien; sinkronkan `agentconfig/project/prd.md` jika ada).

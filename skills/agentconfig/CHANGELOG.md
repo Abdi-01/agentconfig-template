@@ -2,6 +2,18 @@
 
 Riwayat versi `templates/agentconfig/standards/` dan kerangka `project/`. Setiap versi menyebut apa yang perlu dilakukan di repo saat sync.
 
+## v0.4.0 — 2026-10-15
+
+Prinsip **kesederhanaan kode** menjadi aturan standar (prefix baru `TU-` = keputusan pemilik template).
+
+- `standards/coding-style.md`: bagian baru **Kesederhanaan (prioritas pertama)** — TU-01 pendekatan dulu (berhenti jika >5 file atau >~200 baris per FR), TU-02 hanya yang diminta (YAGNI), TU-03 pakai yang sudah ada, TU-04 abstraksi menunggu ≥2 pemakaian, TU-05 ukuran fungsi/file/nesting, TU-06 efisien tanpa optimasi prematur.
+- `standards/definition-of-done.md`: langkah 7a Kesederhanaan (review diff) dan ringkasan diff di laporan akhir.
+- `standards/README.md` + registry: prefix `TU-`.
+- `AGENTS.md.tmpl`: satu baris prinsip kode di router.
+- Alur skill: Langkah 6 menawarkan `delivery-plan`.
+
+**Saat sync dari v0.3.x:** `standards/coding-style.md`, `definition-of-done.md`, dan `README.md` berubah (konflik diharapkan jika tanpa lock; aman ditimpa). Tambahkan baris **Prinsip kode** ke `AGENTS.md` repo (lihat `templates/root/AGENTS.md.tmpl`), tepat sebelum kalimat Definition of Done.
+
 ## v0.3.1 — 2026-10-15
 
 Dukungan skill desain kedua `figma-design`. `standards/` tidak berubah.

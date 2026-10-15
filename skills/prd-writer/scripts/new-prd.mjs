@@ -49,6 +49,10 @@ Catatan kerja penyusunan PRD: jawaban per ronde, sumbernya, dan keputusan. Dibac
 
 Label sumber: [KLIEN] dari klien/brief · [USER] dari penyusun · [ASUMSI] default yang belum dikonfirmasi · [BAHAN] diekstrak dari dokumen (sebut file).
 
+## Profil project
+
+<!-- S / M / L (LIFECYCLE.md) + alasan singkat. -->
+
 ## Bahan masukan
 
 | File / sumber | Isi | Tanggal |

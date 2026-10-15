@@ -1,5 +1,9 @@
 # Changelog — prd-writer
 
+## v0.1.3 — 2026-10-15
+
+Selaras dengan `LIFECYCLE.md`: intake menanyakan **profil project** S/M/L (dicatat di `_discovery.md`), menawarkan `delivery-plan` mode estimasi bila butuh angka penawaran, dan Fase 6 menyebut gate fase 1 secara eksplisit (langkah dinomori ulang: Preferensi desain = langkah 5).
+
 ## v0.1.2 — 2026-10-15
 
 Fase 6 langkah 4 menjadi **pertanyaan preferensi desain** setelah PRD disepakati: Google Stitch (`stitch-design`), Figma agent menggambar / desainer menggambar (`figma-design`), atau tanpa desain khusus. Jawaban dicatat di bagian baru `_discovery.md` › Keputusan desain.

@@ -22,6 +22,7 @@ ID merujuk ke katalog kandidat di laporan audit project asal dan dipakai untuk m
 | `S-` | idem | spesifik stack |
 | `BU-` | audit backend #1 (Express + Prisma), 2026-10-13 | universal |
 | `BS-` | idem | spesifik stack |
+| `TU-` | keputusan pemilik template (bukan dari audit), 2026-10-15 | universal |
 
 Indeks ID → file ada di `skills/agentconfig/registry/rules.md` repo template (`agentconfig-template`). Laporan audit lengkap tidak disalin ke template karena berisi detail klien; laporan tetap di `_audit/` repo project asal.
 

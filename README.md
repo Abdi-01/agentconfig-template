@@ -7,24 +7,27 @@ Kumpulan skill Claude Code untuk alur kerja project dengan AI coding agent: dari
 | [`prd-writer`](skills/prd-writer/SKILL.md) | lihat `skills/prd-writer/VERSION` | Menyusun, melengkapi, atau merevisi PRD (klien + developer) dari ide, brief, transkrip, atau PRD format lain |
 | [`agentconfig`](skills/agentconfig/SKILL.md) | lihat `skills/agentconfig/VERSION` | Memasang/sync `AGENTS.md` + `agentconfig/` (standards reusable + project dari PRD) ke repo, atau mengaudit project lama |
 | [`stitch-design`](skills/stitch-design/SKILL.md) | lihat `skills/stitch-design/VERSION` | Daftar layar dari PRD, prompt Google Stitch per batch, review desain, dan handoff token/export ke repo |
+| [`delivery-plan`](skills/delivery-plan/SKILL.md) | lihat `skills/delivery-plan/VERSION` | Estimasi kasar, milestone dengan gate dan termin, task per FR dengan proyeksi tanggal, GitHub Issues opsional |
 | [`figma-design`](skills/figma-design/SKILL.md) | lihat `skills/figma-design/VERSION` | Daftar layar dari PRD, desain di Figma lewat Figma MCP (agent menggambar atau desainer menggambar), review, dan handoff variables/frame ke repo |
 
 ## Alur
 
+Peta lengkap fase, artefak, gate, dan profil project S/M/L: [`LIFECYCLE.md`](LIFECYCLE.md). Ringkasnya:
+
 ```
-Ide / brief / meeting ──► prd-writer ──► docs/prd/prd.md (+ dokumen untuk klien)
+Ide / brief / meeting ──► (delivery-plan: estimasi) ──► prd-writer ──► docs/prd/prd.md (+ dokumen untuk klien)
                                                │
 PRD dari klien (PDF/DOCX) ─────────────────────┤  (kurang lengkap? → prd-writer mode "susun dari bahan")
                                                ▼
                                     PRD disepakati → pilih tool desain: Stitch · Figma · tanpa desain
                                                ▼
-                 create-next-app / init backend ──► agentconfig ──► stitch-design ─┬─► vibe coding
-                                                                    figma-design  ─┘   (produk ber-UI)
+                 create-next-app / init backend ──► agentconfig ──► stitch-design ─┬─► delivery-plan ──► vibe coding ──► UAT ──► release
+                                                                    figma-design  ─┘   (milestone, task)     (per milestone)
                                                        ▲
                        template versi baru ── sync ────┘
 ```
 
-Semua skill memakai skema ID yang sama — `FR-<MODUL>-<NNN>` dan `NFR-<KAT>-<NNN>` — sehingga requirement di PRD bisa dilacak sampai layar desain (`UI-NN` di `docs/design/screens.md`, format sama untuk Stitch dan Figma), `agentconfig/project/prd.md`, test, dan commit.
+Semua skill memakai skema ID yang sama — `FR-<MODUL>-<NNN>` dan `NFR-<KAT>-<NNN>` — sehingga requirement di PRD bisa dilacak sampai task (`T-NNN`), layar desain (`UI-NN` di `docs/design/screens.md`, format sama untuk Stitch dan Figma), `agentconfig/project/prd.md`, test, dan commit.
 
 ## Instalasi
 
@@ -33,7 +36,7 @@ git clone git@github.com:Abdi-01/agentconfig-template.git ~/.claude/agentconfig-
 ~/.claude/agentconfig-template/install.sh
 ```
 
-`install.sh` membuat symlink `~/.claude/skills/<skill>` → `skills/<skill>` untuk setiap skill, jadi `git pull` langsung memperbarui semuanya. Restart Claude Code, lalu cek dengan `/prd-writer`, `/agentconfig`, `/stitch-design`, dan `/figma-design`.
+`install.sh` membuat symlink `~/.claude/skills/<skill>` → `skills/<skill>` untuk setiap skill, jadi `git pull` langsung memperbarui semuanya. Restart Claude Code, lalu cek dengan `/prd-writer`, `/agentconfig`, `/stitch-design`, `/figma-design`, dan `/delivery-plan`.
 
 | Kebutuhan | Perintah |
 |---|---|
@@ -52,6 +55,7 @@ skills/
   prd-writer/    SKILL.md, VERSION, CHANGELOG.md, templates/, references/, scripts/
   agentconfig/   SKILL.md, VERSION, CHANGELOG.md, templates/, references/, registry/, scripts/
   stitch-design/ SKILL.md, VERSION, CHANGELOG.md, templates/, references/, scripts/
+  delivery-plan/ SKILL.md, VERSION, CHANGELOG.md, templates/, references/, scripts/
   figma-design/  SKILL.md, VERSION, CHANGELOG.md, templates/, references/, scripts/  (memakai bagian bersama dari stitch-design)
 ```
 

@@ -1,6 +1,6 @@
 # Registry ID aturan
 
-Indeks ID aturan → lokasi di `templates/agentconfig/standards/` (template v0.3.1). Dibuat otomatis oleh `scripts/build-registry.mjs`; jangan diedit manual. Baca saat membandingkan audit project baru dengan aturan yang sudah ada, atau saat mencari di mana suatu ID diterapkan.
+Indeks ID aturan → lokasi di `templates/agentconfig/standards/` (template v0.4.0). Dibuat otomatis oleh `scripts/build-registry.mjs`; jangan diedit manual. Baca saat membandingkan audit project baru dengan aturan yang sudah ada, atau saat mencari di mana suatu ID diterapkan.
 
 ## Prefix
 
@@ -10,6 +10,7 @@ Indeks ID aturan → lokasi di `templates/agentconfig/standards/` (template v0.3
 | `S-` | stack — audit frontend #1 (2026-10-13) |
 | `BU-` | universal — audit backend #1 (2026-10-13) |
 | `BS-` | stack — audit backend #1 (2026-10-13) |
+| `TU-` | universal — keputusan pemilik template (2026-10-15) |
 
 Prefix baru didaftarkan di `PREFIXES` script ini dan di `standards/README.md`. Bukti lengkap tiap ID ada di `_audit/` repo project asal (tidak disalin ke template karena berisi detail klien).
 
@@ -79,8 +80,14 @@ Prefix baru didaftarkan di `PREFIXES` script ini dan di `standards/README.md`. B
 | S-17 | `stack/tanstack-query-axios.md` › Upload |
 | S-18 | `stack/shadcn-base-ui-tailwind4.md` › Konvensi komponen React |
 | S-21 | `stack/shadcn-base-ui-tailwind4.md` › Styling & token |
+| TU-01 | `coding-style.md` › Kesederhanaan |
+| TU-02 | `coding-style.md` › Kesederhanaan |
+| TU-03 | `coding-style.md` › Kesederhanaan |
+| TU-04 | `coding-style.md` › Kesederhanaan |
+| TU-05 | `coding-style.md` › Kesederhanaan |
+| TU-06 | `coding-style.md` › Kesederhanaan |
 | U-01 | `coding-style.md` › Frontend |
-| U-02 | `coding-style.md` › Prinsip umum |
+| U-02 | `coding-style.md` › Kesederhanaan<br>`coding-style.md` › Prinsip umum |
 | U-03 | `coding-style.md` › Prinsip umum<br>`stack/tanstack-query-axios.md` › Tanggal & angka dari API |
 | U-04 | `coding-style.md` › Prinsip umum<br>`stack/tanstack-query-axios.md` › Service & adapter (U-04) — `src/services/<domain>Service.ts` |
 | U-05 | `coding-style.md` › Prinsip umum<br>`stack/tanstack-query-axios.md` › Mutation |
@@ -91,7 +98,7 @@ Prefix baru didaftarkan di `PREFIXES` script ini dan di `standards/README.md`. B
 | U-10 | `coding-style.md` › Prinsip umum |
 | U-11 | `coding-style.md` › Prinsip umum<br>`coding-style.md` › Frontend |
 | U-12 | `coding-style.md` › Frontend |
-| U-13 | `coding-style.md` › Dependency |
+| U-13 | `coding-style.md` › Kesederhanaan<br>`coding-style.md` › Dependency |
 | U-14 | `coding-style.md` › Prinsip umum |
 
 ## ID tanpa rujukan di standards/

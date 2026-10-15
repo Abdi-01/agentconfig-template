@@ -1,5 +1,9 @@
 # Changelog — stitch-design
 
+## v0.2.3 — 2026-10-15
+
+Template `build-plan.md` menekankan kode paling sederhana (`coding-style.md` › Kesederhanaan) dan mengikuti urutan `docs/delivery/tasks.md` jika ada. Berlaku juga untuk `figma-design`.
+
 ## v0.2.2 — 2026-10-15
 
 Bagian tool-agnostik (template `screens.md`, `check-design --stage screens`, `screen-inventory.md`, `review-checklist.md`, template build-plan) kini dipakai bersama oleh skill baru `figma-design`; teksnya dibuat netral tool. Tidak ada perubahan perilaku.
