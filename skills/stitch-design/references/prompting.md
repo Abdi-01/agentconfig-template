@@ -27,7 +27,7 @@ Visual style (match our existing <produk referensi> if a reference is given):
 
 Create the design system: color tokens, type scale, spacing, radius, buttons (primary, secondary outline, ghost, destructive), text input, select, date-time picker, tabs, pill badges for statuses (<status dari PRD>), data table, stat card, progress bar, modal, toast, empty state.
 
-Simplicity rules: <blok di bawah>
+<Simplicity rules atau Public page rules sesuai profil layar kunci — blok di bawah>
 
 Screens:
 1. <layar kunci 1: elemen konkret>
@@ -38,15 +38,32 @@ Use realistic <bahasa/negara> names and codes like <contoh dari PRD>.
 
 ## Blok wajib batch 2…n
 
-Tempel di awal setiap prompt (checker mencari frasa `Simplicity rules` dan `Edit the selected screens in place`):
+Satu batch = satu profil. Profil ditentukan kolom Tipe di `screens.md`: semua layar `public` → profil publik; selain itu → profil dashboard. Batch campuran ditandai warning oleh checker; pisahkan.
+
+Selalu di awal prompt (checker mencari frasa `Edit the selected screens in place`):
 
 ```
 Using the existing <nama> design system.
 Edit the selected screens in place. Do not create new versions or duplicates of them; only create new screens for items that do not exist yet.
+```
+
+Lalu satu dari dua blok berikut.
+
+**Profil dashboard** (`page`/`modal`; checker mencari `Simplicity rules`):
+
+```
 Simplicity rules: one main task per screen, max one primary button. Use tables, forms and modals only; no calendars, drag-and-drop, charts, legends, breadcrumbs or explanatory banners. Max 6 table columns. Do not add any feature I did not list. Show rules only as inline validation errors.
 ```
 
 Jika FR MVP memang butuh chart atau kalender, hapus kata itu dari daftar larangan **khusus untuk batch tersebut** dan sebutkan FR-nya di baris `Layar:`.
+
+**Profil publik** (`public`; checker mencari `Public page rules`):
+
+```
+Public page rules: mobile-first, one primary call-to-action per section. Only the sections I list; no testimonials, pricing tiers, newsletter, chat widget, statistics or FAQ unless listed. Use realistic content structure (no lorem ipsum) and clearly marked image placeholders. Do not add any feature I did not list. Show rules only as inline validation errors.
+```
+
+Komponen yang dituntut FR (mis. kalender pilih jadwal di halaman booking, galeri foto) ditulis eksplisit di daftar layar.
 
 ## Pola layar
 

@@ -52,7 +52,7 @@ Hasil export Google Stitch (HTML, PNG, DESIGN.md) sebagai **referensi visual**. 
 
 Jangan menulis email atau kredensial di sini.
 
-| Tanggal | Jalur (manual / MCP-A / MCP-B) | Project Stitch | Akun pemilik (pribadi/kantor) | Hasil cek C1–C5 |
+| Tanggal | Jalur (manual / CLI / MCP stdio / proxy) | Project Stitch | Akun pemilik (pribadi/kantor) | Hasil cek C1–C5 |
 |---|---|---|---|---|
 `);
   result.created.push("export/README.md");

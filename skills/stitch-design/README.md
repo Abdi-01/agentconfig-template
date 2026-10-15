@@ -14,9 +14,9 @@ docs/design/
   export/         HTML/PNG/DESIGN.md dari Stitch (referensi, tidak di-import)
 ```
 
-## Export: manual atau MCP
+## Export: manual atau otomatis
 
-Default manual (download zip dari canvas). Jalur MCP opsional: skill menjalankan pengecekan integrasi C1–C5 (tool terdaftar, server merespons, akun Google sama dengan pemilik project, layar terbaca, aset terambil) dan memberi panduan setup jika belum terpasang. Lihat [`references/mcp-setup.md`](references/mcp-setup.md).
+Default manual (download zip dari canvas). Jalur otomatis opsional lewat CLI resmi Google `@google/stitch` (versi di-pin, login OAuth), langsung dari shell atau sebagai MCP stdio. MCP remote dengan header API key tidak disarankan untuk Claude Code (dilaporkan gagal karena Claude Code mencoba OAuth). Skill menjalankan pengecekan integrasi C1–C5 (tersedia, terautentikasi, akun Google sama dengan pemilik project, layar terbaca, aset terambil) dan memberi panduan setup jika belum terpasang. Lihat [`references/mcp-setup.md`](references/mcp-setup.md).
 
 ## Script (Node ≥18, tanpa dependency)
 

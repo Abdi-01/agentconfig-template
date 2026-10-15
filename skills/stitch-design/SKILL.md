@@ -12,7 +12,9 @@ Menjembatani PRD dan kode lewat Google Stitch: **daftar layar → prompt per bat
 ## Prinsip
 
 - **PRD adalah batas.** Setiap layar merujuk ke ID FR. Fitur yang muncul di desain tetapi tidak ada di PRD dibuang dari desain, bukan ditambahkan diam-diam ke scope. Jika user ingin mempertahankannya, itu revisi PRD lewat `prd-writer`.
-- **Sederhana dulu.** MVP memakai tabel, form, modal, dan stat card. Tanpa kalender interaktif, drag-and-drop, grafik, legend, breadcrumb, atau banner aturan, kecuali FR menuntutnya. Aturan bisnis tampil sebagai validasi di form.
+- **Sederhana dulu, sesuai jenis layar.** Dua profil, ditentukan kolom Tipe di `screens.md`:
+  - **Dashboard** (`page`, `modal`): tabel, form, modal, dan stat card. Tanpa kalender interaktif, drag-and-drop, grafik, legend, breadcrumb, atau banner aturan, kecuali FR menuntutnya. Aturan bisnis tampil sebagai validasi di form. Blok prompt: **Simplicity rules**.
+  - **Publik** (`public`: landing, katalog, detail produk/layanan, checkout, login): boleh hero, galeri, kartu bergambar, dan komponen yang dituntut FR (mis. kalender booking), tetapi tanpa section karangan (testimoni, paket harga, newsletter, chat widget, statistik) yang tidak ada di PRD. Blok prompt: **Public page rules**.
 - **Maksimal 5 layar per prompt.** Stitch tidak stabil di atas itu (gaya melenceng, layar terlewat). Satu revisi kecil = satu perubahan per prompt.
 - **Export adalah referensi, bukan kode.** HTML Stitch tidak disalin ke `src/`. Yang dibawa ke repo: token, screenshot/HTML sebagai acuan visual, dan pemetaan kelas export ke token project (aturan S-21 di `standards/stack/shadcn-base-ui-tailwind4.md` jika repo memakai agentconfig).
 - **Tool lain = skill lain.** Skill ini khusus Stitch. Jika suatu saat pindah ke tool desain lain, buat skill terpisah dengan pola yang sama; `docs/design/screens.md` tetap dipakai ulang.
@@ -44,7 +46,7 @@ Titik berhenti wajib ditandai ⛔.
 Baca PRD sampai habis (§8 role, §9 FR, §5 scope, §6 alur). Isi tabel `screens.md` sesuai `references/screen-inventory.md`:
 - satu baris per layar/modal, kolom Role, Tipe, FR, Batch;
 - hanya FR **MVP**; FR Fase 2/Nanti dicatat di bagian "Ditunda";
-- satu role yang hanya memantau (mis. "Academic membaca semua") tidak mendapat layar sendiri jika layar role lain sudah cukup; catat aksesnya di kolom Catatan.
+- satu role yang hanya memantau (mis. "Manajer: baca semua") tidak mendapat layar sendiri jika layar role lain sudah cukup; catat aksesnya di kolom Catatan.
 
 Jalankan:
 ```
@@ -67,7 +69,7 @@ Tulis jawabannya ke bagian **Brief** di `prompts.md`.
 
 Ikuti `references/prompting.md`. Tulis ke `prompts.md`:
 - **Batch 1:** design system lengkap (token, komponen, status pill sesuai status di PRD) + 1–2 layar kunci. Disertai instruksi: cek dan rapikan panel Design System di Stitch sebelum batch berikutnya.
-- **Batch 2…n:** maksimal 5 layar, diawali blok **Simplicity rules** dan **Edit in place**, layar ditulis dengan kolom/field konkret dari FR dan data model PRD, data contoh realistis.
+- **Batch 2…n:** maksimal 5 layar dengan satu profil per batch (dashboard **atau** publik, jangan dicampur), diawali blok **Simplicity rules** (dashboard) atau **Public page rules** (publik) dan **Edit in place**, layar ditulis dengan kolom/field konkret dari FR dan data model PRD, data contoh realistis.
 - Setiap batch mencantumkan baris `Layar: UI-01, UI-02, …` sesuai `screens.md`.
 
 Jalankan `check-design.mjs … --stage prompts` sampai `ok: true`. Lalu kirim prompt ke user per batch, dengan cara pakai: buat project Stitch (mode Web/App sesuai Fase 2) → jalankan Batch 1 → rapikan Design System → batch berikutnya. Untuk redesign: pilih layar lama di canvas dulu, jalankan prompt, hapus layar lama secara manual jika Stitch tetap membuat versi baru (prompt tidak bisa menghapus layar).
@@ -88,11 +90,11 @@ Laporkan temuan dalam tiga kelompok (Buang · Tambah · Sederhanakan), lalu beri
 
 Ikuti `references/handoff.md`.
 
-⛔ **Tanyakan jalur export:** **manual** (user download zip dari canvas, default) atau **MCP** (agent mengambil layar langsung dari Stitch).
+⛔ **Tanyakan jalur export:** **manual** (user download zip dari canvas, default) atau **otomatis** (agent mengambil layar lewat CLI resmi `@google/stitch`, atau MCP stdio dari CLI yang sama).
 
 1. Ambil desain ke `docs/design/export/` (satu subfolder per batch, nama file diawali ID `UI-xx`):
    - **Manual:** user multi-select layar final → download zip HTML + gambar, plus DESIGN.md, lalu letakkan di folder itu.
-   - **MCP:** ikuti `references/mcp-setup.md`. Jalankan pengecekan integrasi C1–C5 lebih dulu, termasuk memastikan kredensial MCP milik **akun Google yang sama** dengan pemilik project Stitch. Jika belum terpasang atau ada langkah gagal: tampilkan diagnosis + panduan setup (Jalur A API key, Jalur B gcloud) dan tawarkan jalur manual sambil menunggu. Hanya tool baca yang dipakai.
+   - **Otomatis:** ikuti `references/mcp-setup.md`. Default untuk Claude Code adalah **Jalur C** (CLI resmi lewat shell, tanpa MCP); MCP remote dengan header API key **tidak dipakai** karena dilaporkan gagal di Claude Code. Jalankan pengecekan integrasi C1–C5 lebih dulu, termasuk memastikan login CLI milik **akun Google yang sama** dengan pemilik project Stitch. Jika belum terpasang atau ada langkah gagal: tampilkan diagnosis + panduan setup dan tawarkan jalur manual sambil menunggu. Hanya operasi baca yang dipakai.
    - Catat jalur dan hasil cek di `docs/design/export/README.md` › Integrasi. Jangan menulis email atau kredensial ke repo.
 2. Baca DESIGN.md + beberapa HTML: ekstrak warna, font, radius, spacing, dan kelas kustom yang dipakai export.
 3. Isi `agentconfig/project/design-system.md`: Brand, tabel token (light/dark), **Pemetaan kelas export → token project**, komponen gabungan yang direncanakan (AppShell, PageHeader, FilterBar, DataTable, StatCard, StatusPill, …) dengan kolom Lokasi `TODO` sampai dibuat. Label `[DESAIN]` + path file export.

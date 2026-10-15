@@ -39,7 +39,7 @@ function sectionLines(text, heading) {
 const dataRows = (lines) => (lines || []).filter((l) => /^\|/.test(l) && !/^\|\s*:?-/.test(l)).slice(1)
   .filter((r) => cells(r).some((c) => c));
 
-// Ekspansi rujukan FR, termasuk rentang "FR-SES-001 – FR-SES-004".
+// Ekspansi rujukan FR, termasuk rentang "FR-BOOK-001 – FR-BOOK-004".
 function expandFr(txt) {
   const ids = new Set();
   for (const m of txt.matchAll(/FR-([A-Z0-9]{2,10})-(\d{3})\s*[–-]\s*FR-\1-(\d{3})/g)) {
@@ -70,10 +70,11 @@ for (const r of dataRows(table)) {
   if (!TYPES.includes(type)) errors.push(`${id}: tipe "${type}" tidak valid (${TYPES.join(", ")}).`);
   if (!Number.isInteger(s.batch) || s.batch < 1) errors.push(`${id}: batch "${batch}" bukan angka ≥1.`);
   if (!STATUSES.includes(status)) errors.push(`${id}: status "${status}" tidak valid (${STATUSES.join(", ")}).`);
-  if (!s.fr.length && !/\[ASUMSI\]/.test(s.note) && !/login/i.test(name)) warnings.push(`${id} ${name}: tidak merujuk FR — hapus layar atau tulis FR-nya.`);
+  if (!s.fr.length && !/\[ASUMSI\]/.test(s.note) && !/log ?in|sign ?in|masuk|daftar|register/i.test(name)) warnings.push(`${id} ${name}: tidak merujuk FR — hapus layar atau tulis FR-nya.`);
 }
 const seen = new Set();
 for (const s of screens) { if (seen.has(s.id)) errors.push(`ID layar ganda: ${s.id}`); seen.add(s.id); }
+const byId = new Map(screens.map((s) => [s.id, s]));
 const live = screens.filter((s) => s.status !== "Diganti");
 if (!live.length) errors.push("screens.md: belum ada layar.");
 
@@ -149,11 +150,19 @@ if (stage === "prompts") {
       if (!replaced) listed.forEach((id) => inPrompts.add(id));
       for (const id of listed) if (!seen.has(id)) errors.push(`${label}: ${id} tidak ada di screens.md.`);
       if (replaced) continue;
+      // Profil batch dari kolom Tipe: semua `public` → publik; selain itu → dashboard.
+      const types = listed.map((id) => byId.get(id)?.type).filter(Boolean);
+      const publicCount = types.filter((t) => t === "public").length;
+      const profile = types.length && publicCount === types.length ? "public" : "dashboard";
+      const hasSimplicity = /simplicity rules/i.test(code);
+      const hasPublic = /public page rules/i.test(code);
       if (n === 1) {
         if (!/design system/i.test(code)) warnings.push("Batch 1: prompt tidak meminta design system.");
-        if (!/simplicity rules/i.test(code)) warnings.push("Batch 1: tanpa blok Simplicity rules.");
+        if (!hasSimplicity && !hasPublic) warnings.push("Batch 1: tanpa blok Simplicity rules / Public page rules.");
       } else {
-        if (!/simplicity rules/i.test(code)) errors.push(`${label}: blok "Simplicity rules" tidak ada.`);
+        if (publicCount && publicCount < types.length) warnings.push(`${label}: campuran layar public dan dashboard — pisahkan ke batch berbeda.`);
+        if (profile === "public" && !hasPublic) errors.push(`${label}: batch publik tanpa blok "Public page rules".`);
+        if (profile === "dashboard" && !hasSimplicity) errors.push(`${label}: batch dashboard tanpa blok "Simplicity rules".`);
         if (!/edit the selected screens in place/i.test(code)) warnings.push(`${label}: tanpa instruksi "Edit the selected screens in place".`);
       }
       const expected = (batches[n] || []).slice().sort().join(",");
