@@ -14,6 +14,10 @@ docs/design/
   export/         HTML/PNG/DESIGN.md dari Stitch (referensi, tidak di-import)
 ```
 
+## Export: manual atau MCP
+
+Default manual (download zip dari canvas). Jalur MCP opsional: skill menjalankan pengecekan integrasi C1–C5 (tool terdaftar, server merespons, akun Google sama dengan pemilik project, layar terbaca, aset terambil) dan memberi panduan setup jika belum terpasang. Lihat [`references/mcp-setup.md`](references/mcp-setup.md).
+
 ## Script (Node ≥18, tanpa dependency)
 
 | Script | Fungsi |

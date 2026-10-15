@@ -86,8 +86,14 @@ Laporkan temuan dalam tiga kelompok (Buang · Tambah · Sederhanakan), lalu beri
 
 ## Fase 5 — Handoff ke repo
 
-Ikuti `references/handoff.md`:
-1. User export layar final (multi-select → download zip HTML + gambar) dan DESIGN.md dari Stitch, letakkan di `docs/design/export/` (satu subfolder per batch, nama layar = ID `UI-xx`). Alternatif: Stitch MCP server untuk coding agent (verifikasi dokumentasi resmi; tool ini masih beta).
+Ikuti `references/handoff.md`.
+
+⛔ **Tanyakan jalur export:** **manual** (user download zip dari canvas, default) atau **MCP** (agent mengambil layar langsung dari Stitch).
+
+1. Ambil desain ke `docs/design/export/` (satu subfolder per batch, nama file diawali ID `UI-xx`):
+   - **Manual:** user multi-select layar final → download zip HTML + gambar, plus DESIGN.md, lalu letakkan di folder itu.
+   - **MCP:** ikuti `references/mcp-setup.md`. Jalankan pengecekan integrasi C1–C5 lebih dulu, termasuk memastikan kredensial MCP milik **akun Google yang sama** dengan pemilik project Stitch. Jika belum terpasang atau ada langkah gagal: tampilkan diagnosis + panduan setup (Jalur A API key, Jalur B gcloud) dan tawarkan jalur manual sambil menunggu. Hanya tool baca yang dipakai.
+   - Catat jalur dan hasil cek di `docs/design/export/README.md` › Integrasi. Jangan menulis email atau kredensial ke repo.
 2. Baca DESIGN.md + beberapa HTML: ekstrak warna, font, radius, spacing, dan kelas kustom yang dipakai export.
 3. Isi `agentconfig/project/design-system.md`: Brand, tabel token (light/dark), **Pemetaan kelas export → token project**, komponen gabungan yang direncanakan (AppShell, PageHeader, FilterBar, DataTable, StatCard, StatusPill, …) dengan kolom Lokasi `TODO` sampai dibuat. Label `[DESAIN]` + path file export.
 4. Komponen gabungan yang bukan bawaan UI library dicatat sebagai `D-xx` di `project/decisions.md` hanya jika menyimpang dari standards.

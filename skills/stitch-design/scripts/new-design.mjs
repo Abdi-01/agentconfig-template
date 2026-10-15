@@ -47,6 +47,13 @@ Hasil export Google Stitch (HTML, PNG, DESIGN.md) sebagai **referensi visual**. 
 - Nama file diawali ID layar dari \`../screens.md\`: \`UI-01-login.html\`, \`UI-01-login.png\`.
 - \`DESIGN.md\` dari Stitch disimpan di folder ini apa adanya.
 - Token dan pemetaan kelas export ke token project ada di \`agentconfig/project/design-system.md\`.
+
+## Integrasi
+
+Jangan menulis email atau kredensial di sini.
+
+| Tanggal | Jalur (manual / MCP-A / MCP-B) | Project Stitch | Akun pemilik (pribadi/kantor) | Hasil cek C1–C5 |
+|---|---|---|---|---|
 `);
   result.created.push("export/README.md");
 }

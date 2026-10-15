@@ -23,7 +23,7 @@ docs/design/
 |---|---|---|
 | Multi-select layar di canvas → download zip (HTML + gambar), plus DESIGN.md | Default | Satu kali per batch final; ganti nama file ke ID `UI-xx` |
 | Export per layar | Revisi satu layar | |
-| Stitch MCP server di coding agent | Jika user sudah memasangnya | Masih beta; ikuti dokumentasi resmi, jangan tulis konfigurasi dari ingatan |
+| Stitch MCP (agent mengambil layar) | User memilih jalur MCP | Wajib lolos pengecekan C1–C5 di `mcp-setup.md` (termasuk akun Google yang sama); jika gagal, panduan setup atau kembali ke manual |
 
 ## Ekstraksi token
 
