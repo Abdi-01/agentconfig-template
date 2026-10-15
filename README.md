@@ -6,6 +6,7 @@ Kumpulan skill Claude Code untuk alur kerja project dengan AI coding agent: dari
 |---|---|---|
 | [`prd-writer`](skills/prd-writer/SKILL.md) | lihat `skills/prd-writer/VERSION` | Menyusun, melengkapi, atau merevisi PRD (klien + developer) dari ide, brief, transkrip, atau PRD format lain |
 | [`agentconfig`](skills/agentconfig/SKILL.md) | lihat `skills/agentconfig/VERSION` | Memasang/sync `AGENTS.md` + `agentconfig/` (standards reusable + project dari PRD) ke repo, atau mengaudit project lama |
+| [`stitch-design`](skills/stitch-design/SKILL.md) | lihat `skills/stitch-design/VERSION` | Daftar layar dari PRD, prompt Google Stitch per batch, review desain, dan handoff token/export ke repo |
 
 ## Alur
 
@@ -14,12 +15,13 @@ Ide / brief / meeting ──► prd-writer ──► docs/prd/prd.md (+ dokumen 
                                                │
 PRD dari klien (PDF/DOCX) ─────────────────────┤  (kurang lengkap? → prd-writer mode "susun dari bahan")
                                                ▼
-                 create-next-app / init backend ──► agentconfig ──► vibe coding
+                 create-next-app / init backend ──► agentconfig ──► stitch-design ──► vibe coding
+                                                                    (produk ber-UI)
                                                        ▲
                        template versi baru ── sync ────┘
 ```
 
-Kedua skill memakai skema ID yang sama — `FR-<MODUL>-<NNN>` dan `NFR-<KAT>-<NNN>` — sehingga requirement di PRD bisa dilacak sampai `agentconfig/project/prd.md`, test, dan commit.
+Semua skill memakai skema ID yang sama — `FR-<MODUL>-<NNN>` dan `NFR-<KAT>-<NNN>` — sehingga requirement di PRD bisa dilacak sampai layar desain (`UI-NN` di `docs/design/screens.md`), `agentconfig/project/prd.md`, test, dan commit.
 
 ## Instalasi
 
@@ -28,7 +30,7 @@ git clone git@github.com:Abdi-01/agentconfig-template.git ~/.claude/agentconfig-
 ~/.claude/agentconfig-template/install.sh
 ```
 
-`install.sh` membuat symlink `~/.claude/skills/<skill>` → `skills/<skill>` untuk setiap skill, jadi `git pull` langsung memperbarui semuanya. Restart Claude Code, lalu cek dengan `/prd-writer` dan `/agentconfig`.
+`install.sh` membuat symlink `~/.claude/skills/<skill>` → `skills/<skill>` untuk setiap skill, jadi `git pull` langsung memperbarui semuanya. Restart Claude Code, lalu cek dengan `/prd-writer`, `/agentconfig`, dan `/stitch-design`.
 
 | Kebutuhan | Perintah |
 |---|---|
@@ -46,6 +48,7 @@ install.sh
 skills/
   prd-writer/    SKILL.md, VERSION, CHANGELOG.md, templates/, references/, scripts/
   agentconfig/   SKILL.md, VERSION, CHANGELOG.md, templates/, references/, registry/, scripts/
+  stitch-design/ SKILL.md, VERSION, CHANGELOG.md, templates/, references/, scripts/
 ```
 
 Setiap skill punya `VERSION` dan `CHANGELOG.md` sendiri. Skill baru = folder baru di `skills/` dengan `SKILL.md`; `install.sh` memasangnya otomatis.

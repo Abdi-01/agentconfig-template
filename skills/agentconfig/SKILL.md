@@ -67,6 +67,7 @@ Aturan pengisian:
 - Label: `[PRD]` untuk yang berasal dari PRD, `[KEPUTUSAN]` untuk jawaban user, `[TERBUKTI]`/`[DISIMPULKAN]`/`[TIDAK ADA]` + path untuk yang dibaca dari kode.
 - Jangan menyalin isi `standards/` ke `project/`; rujuk saja. `project/` hanya memuat yang spesifik repo ini atau penyimpangan.
 - Bagian yang tidak relevan: tulis `—`, jangan hapus heading (kecuali instruksi penanda menyuruh menghapus file).
+- `design-system.md`: jika `docs/design/` sudah ada (hasil skill `stitch-design`), ambil Brand, token, dan pemetaan kelas export dari sana dengan label `[DESAIN]`. Jika belum ada, isi yang diketahui dari PRD, tulis `TODO` untuk token, dan sarankan menjalankan `stitch-design` setelah langkah ini.
 - Jika ada cadangan di `_audit/legacy/`: pindahkan aturan lama yang masih benar ke file `project/` yang sesuai (atau catat sebagai usulan template), lalu laporkan daftar aturan yang dibuang beserta alasannya.
 
 ## Langkah 5 — Validasi
@@ -83,7 +84,8 @@ Ringkas ke user:
 1. File yang dibuat (kelompokkan: router, standards (n file, versi), project).
 2. Keputusan yang tercatat (`D-xx`, satu baris per keputusan).
 3. TODO yang perlu user isi/putuskan, dikelompokkan per file.
-4. Langkah berikutnya yang konkret, mis. tambah script `typecheck`/`test`, pasang Vitest/Playwright sesuai `standards/testing/README.md`, commit di branch `docs/agentconfig`.
+4. Untuk tipe `frontend-web`/`fullstack` tanpa `docs/design/`: tawarkan skill `stitch-design` (daftar layar → prompt Stitch → handoff token).
+5. Langkah berikutnya yang konkret, mis. tambah script `typecheck`/`test`, pasang Vitest/Playwright sesuai `standards/testing/README.md`, commit di branch `docs/agentconfig`.
 
 Jangan commit atau push kecuali user minta. Jika diminta, satu commit `docs: add agentconfig from template <versi>`.
 
