@@ -73,6 +73,7 @@ Laporkan ke user secara ringkas (bukan isi PRD): statistik dari `check-prd` (mod
 1. **Dokumen klien:** jika sesi punya tool dokumen bersama (mis. Claude Docs atau konektor Google Docs), buat dokumen dari `prd.md` yang final; jika tidak, tawarkan file `.docx`/`.pdf` lewat skill dokumen yang tersedia. Markdown tetap sumber kebenaran — perubahan berikutnya dilakukan di Markdown lalu dokumen dibuat ulang. Claude tidak mengirim apa pun ke klien; user yang mengirim.
 2. **Persetujuan:** saat klien menyetujui, isi tabel Persetujuan, ubah Status ke "Disetujui", naikkan versi ke `1.0`.
 3. **Serah ke agentconfig:** jika repo sudah punya `agentconfig/`, tawarkan memperbarui `agentconfig/project/prd.md` (status per FR). Jika belum, tawarkan menjalankan skill `agentconfig` mode init dengan PRD ini.
+4. **Serah ke desain:** jika produk punya UI dan belum ada `docs/design/`, sebutkan bahwa setelah `agentconfig` langkah berikutnya adalah skill `stitch-design` (daftar layar dari FR → prompt Stitch → handoff token). Jika `docs/design/` sudah ada dan PRD direvisi, tawarkan `stitch-design` Langkah R.
 
 ## Langkah R — Revisi PRD yang sudah ada
 

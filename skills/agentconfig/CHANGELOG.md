@@ -2,6 +2,16 @@
 
 Riwayat versi `templates/agentconfig/standards/` dan kerangka `project/`. Setiap versi menyebut apa yang perlu dilakukan di repo saat sync.
 
+## v0.3.0 — 2026-10-15
+
+Integrasi dengan skill baru `stitch-design` (desain UI dari PRD lewat Google Stitch, output `docs/design/`). `standards/` tidak berubah.
+
+- `project/design-system.md.tmpl`: bagian baru **Sumber desain** dan **Pemetaan kelas export** (kelas kustom dari HTML export → token `globals.css`, melengkapi aturan S-21).
+- Legenda `agentconfig/README.md.tmpl`: label `[DESAIN]`.
+- Alur skill: Langkah 4 mengisi `design-system.md` dari `docs/design/` jika ada; Langkah 6 menawarkan `stitch-design` untuk frontend/fullstack tanpa desain. `references/prd-to-docs.md`: baris pemetaan desain.
+
+**Saat sync dari v0.2.x:** tidak ada konflik di `standards/`. Di repo frontend/fullstack: tambahkan heading `## Sumber desain` (sebelum Brand) dan `## Pemetaan kelas export` (sebelum Komponen reusable) ke `project/design-system.md`, isi `—` jika belum memakai desain export; tambahkan baris `[DESAIN]` ke legenda `agentconfig/README.md`.
+
 ## v0.2.2 — 2026-10-15
 
 Integrasi dengan skill `prd-writer` (repo menjadi multi-skill: `skills/agentconfig/`, `skills/prd-writer/`, `install.sh`).
