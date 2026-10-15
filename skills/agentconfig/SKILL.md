@@ -33,15 +33,21 @@ Jalankan `detect.mjs`. Dari hasilnya tentukan mode:
 - `uncatalogued` (dependency penting tanpa file stack — lihat `references/stack-catalog.md`);
 - `existing`: blok framework di AGENTS.md (dipertahankan), AGENTS.md/CLAUDE.md lama (dicadangkan), file instruksi agent lain, file yang di-ignore git;
 - topologi: repo tunggal, atau ada repo sibling (FE/BE lain)? Repo mana pemilik kontrak API?
-- sumber PRD: path file, teks tempelan, atau belum ada.
+- sumber PRD: `docs/prd/prd.md` (cek otomatis — hasil skill `prd-writer`), path file lain, teks tempelan, atau belum ada.
 
-## Langkah 2 — Baca PRD & gap check
+**Jika PRD belum ada:** sarankan menjalankan skill `prd-writer` dulu, lalu kembali ke skill ini. Hanya jika user menolak (mis. prototipe cepat), lanjut dengan pertanyaan minimum: ringkasan produk, pengguna/role, fitur MVP beserta 1–2 acceptance criteria per fitur, dan metrik keberhasilan — semuanya berlabel `[KEPUTUSAN]` di `project/prd.md`.
+
+## Langkah 2 — Baca PRD, cek kualitas & gap check
 
 Baca PRD sampai habis (PDF/DOCX: pakai skill pembaca file yang tersedia). Lalu ikuti `references/prd-to-docs.md`:
-1. Petakan isi PRD ke file `project/` (tabel di reference).
-2. Susun daftar **gap**: keputusan teknis yang PRD tidak jawab, dari checklist di reference, hanya yang relevan dengan tipe project. Sertakan rekomendasi default untuk tiap pertanyaan supaya user cukup menjawab "ya".
+1. **Cek kualitas PRD.** PRD Markdown format `prd-writer`: jalankan `node $SKILL_DIR/../prd-writer/scripts/check-prd.mjs --file <path>`. PRD lain (PDF, DOCX, format bebas): periksa dengan checklist "Cek kualitas PRD" di reference.
+2. Petakan isi PRD ke file `project/` (tabel di reference).
+3. Susun daftar **gap teknis**: keputusan teknis yang PRD tidak jawab, dari checklist di reference, hanya yang relevan dengan tipe project. Sertakan rekomendasi default untuk tiap pertanyaan supaya user cukup menjawab "ya".
 
-⛔ **Kirim daftar gap bernomor dan berhenti.** Jika PRD belum ada, tanyakan minimal: ringkasan produk, pengguna/role, fitur MVP, dan item gap yang wajib.
+⛔ **Kirim dalam satu pesan, lalu berhenti:**
+- hasil cek kualitas PRD (yang kurang: acceptance criteria, metrik, role, NFR terukur, scope);
+- jika kekurangannya berat (mis. FR MVP tanpa acceptance criteria, tidak ada role/metrik): tawarkan pilihan — **(a)** lengkapi dulu lewat `prd-writer` mode "susun dari bahan", atau **(b)** lanjut; kekurangan menjadi pertanyaan di bawah dan TODO di `project/prd.md`;
+- daftar gap teknis bernomor.
 
 ## Langkah 3 — Scaffold
 

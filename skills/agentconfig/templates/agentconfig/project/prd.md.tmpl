@@ -1,0 +1,50 @@
+# PRD — {{REPO_NAME}}
+
+<!-- AI: pilih satu banner sesuai sumber, hapus yang lain:
+> **Ringkasan dari PRD kanonik `<path, mis. docs/prd/prd.md>` v<versi>.** File ini melacak status per requirement di repo ini; isi requirement dan acceptance criteria lengkap ada di PRD kanonik. Label `[PRD]` berubah menjadi `[TERBUKTI]` saat fitur dibangun.
+> **Diturunkan dari PRD eksternal, belum ada kode.** Disusun {{DATE}} dari <nama dokumen PRD + versi + lokasi>. Label `[PRD]` berubah menjadi `[TERBUKTI]` saat fitur dibangun.
+> **Direkonstruksi dari kode, perlu divalidasi.** Disusun {{DATE}} dari branch <branch> (HEAD <sha>).
+-->
+
+Ringkasan produk, pengguna, metrik, fitur beserta status dan acceptance criteria-nya di repo ini. Baca sebelum menambah/mengubah fitur atau alur user, sebelum menulis test untuk suatu fitur, dan saat menentukan alur kritis yang wajib punya test integration/e2e.
+
+## Sumber
+
+<!-- AI: PRD kanonik (path di repo, atau nama + versi + lokasi dokumen eksternal), dokumen kontrak/spec lain. Pakai ID requirement dari PRD (FR-*, NFR-*). Jika PRD tidak punya ID, buat ID FR-<MODUL>-<NNN> di sini dan sebutkan bahwa ID dibuat saat setup. -->
+
+## Ringkasan produk
+
+<!-- AI: 2–4 kalimat: masalah yang diselesaikan, untuk siapa, nilai utama, bahasa produk. -->
+
+## Metrik keberhasilan
+
+| Metrik | Target | Cara ukur | Yang perlu disiapkan di kode |
+|---|---|---|---|
+<!-- AI: dari PRD. Kolom terakhir: event analytics, field database, atau laporan yang harus ada agar metrik bisa diukur (mis. "simpan `source` di booking"). Jika PRD tidak punya metrik: TODO + masuk Pertanyaan terbuka. -->
+
+## Pengguna & role
+
+| Pengguna / role | Cara masuk | Hak utama | Sumber |
+|---|---|---|---|
+<!-- AI: satu baris per jenis pengguna (anonim, guest, user terdaftar, admin, …). Kolom Sumber: ID PRD atau path kode. -->
+
+## Fitur
+
+| Requirement | Fitur | Prioritas | Status | Acceptance criteria |
+|---|---|---|---|---|
+<!-- AI: satu baris per FR yang menjadi tanggung jawab repo ini (multi-repo: hanya FR yang dikerjakan di sini).
+Prioritas: MVP / Fase 2 / Nanti.
+Status: [PRD] untuk yang belum dibangun; [TERBUKTI]/[DISIMPULKAN]/[TIDAK ADA] + path bukti untuk yang sudah ada kodenya.
+Acceptance criteria: jika PRD kanonik sudah punya AC → "PRD §9" (jangan disalin); jika PRD tidak punya AC → tulis 1–3 AC ringkas pola "Diberikan … ketika … maka …" dan beri label [KEPUTUSAN] setelah disetujui user. -->
+
+## Di luar cakupan
+
+<!-- AI: hal yang PRD nyatakan tidak dikerjakan, atau yang user putuskan ditunda. "—" jika tidak ada. -->
+
+## Alur kritis (wajib test integration/e2e)
+
+<!-- AI: 3–7 alur end-to-end yang paling bernilai/berisiko (uang, data pribadi, akses). Format: "1. <nama alur> — <langkah ringkas> — <requirement>". -->
+
+## Pertanyaan terbuka
+
+<!-- AI: hal yang tidak dijawab PRD dan belum diputuskan, masing-masing dengan pemilik keputusan (user/klien). Rujuk nomor di PRD kanonik §14 jika sudah tercatat di sana. "—" jika tidak ada. -->

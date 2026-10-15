@@ -2,6 +2,17 @@
 
 Riwayat versi `templates/agentconfig/standards/` dan kerangka `project/`. Setiap versi menyebut apa yang perlu dilakukan di repo saat sync.
 
+## v0.2.2 — 2026-10-15
+
+Integrasi dengan skill `prd-writer` (repo menjadi multi-skill: `skills/agentconfig/`, `skills/prd-writer/`, `install.sh`).
+
+- Alur skill: Langkah 1 mengenali `docs/prd/prd.md`; jika PRD belum ada, menyarankan `prd-writer` dulu. Langkah 2 menambah **cek kualitas PRD** (script `check-prd` untuk PRD format `prd-writer`, checklist manual untuk PRD lain) dan pilihan melengkapi PRD sebelum lanjut.
+- `references/prd-to-docs.md`: bagian "Cek kualitas PRD" dan pemetaan PRD format `prd-writer` → `project/`.
+- `project/prd.md.tmpl`: bagian **Metrik keberhasilan** (dengan kolom "yang perlu disiapkan di kode") dan kolom **Acceptance criteria** di tabel Fitur (rujuk PRD kanonik; ditulis di sini hanya jika PRD tidak punya AC).
+- `standards/README.md`: path registry dikoreksi ke `skills/agentconfig/registry/rules.md`. Isi aturan lain tidak berubah.
+
+**Saat sync dari v0.2.x:** konflik hanya di `standards/README.md` (aman ditimpa). Untuk repo yang sudah ada: tambahkan bagian "Metrik keberhasilan" dan kolom "Acceptance criteria" ke `project/prd.md` saat PRD berikutnya disentuh — tidak wajib segera.
+
 ## v0.2.1 — 2026-10-14
 
 Template dipindah ke repo sendiri dan dibungkus sebagai skill `agentconfig`.

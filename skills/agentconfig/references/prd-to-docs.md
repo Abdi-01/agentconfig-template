@@ -1,8 +1,43 @@
 # PRD → agentconfig/project/
 
-Panduan menurunkan isi `project/` dari PRD dan daftar keputusan teknis yang harus ditanyakan ke user. Dibaca di Langkah 2 dan 4 SKILL.md.
+Panduan memeriksa kualitas PRD, menurunkan isinya ke `project/`, dan daftar keputusan teknis yang harus ditanyakan ke user. Dibaca di Langkah 2 dan 4 SKILL.md.
 
-## Pemetaan isi PRD
+## Cek kualitas PRD
+
+PRD format skill `prd-writer` (`docs/prd/prd.md`): pakai `../prd-writer/scripts/check-prd.mjs` — hasilnya sudah mencakup checklist di bawah. PRD lain: periksa manual dan laporkan per butir (ada / sebagian / tidak ada):
+
+| # | Butir | Kenapa penting untuk agent | Berat? |
+|---|---|---|---|
+| 1 | Role & hak akses jelas | Dasar otorisasi dan matriks akses | ya |
+| 2 | Fitur punya prioritas (MVP vs nanti) | Agent tahu apa yang dikerjakan dulu | ya |
+| 3 | Fitur MVP punya acceptance criteria yang bisa diuji | Definisi "selesai" untuk agent dan test | ya |
+| 4 | Metrik keberhasilan dengan target | Data apa yang harus dicatat sejak awal | sedang |
+| 5 | NFR terukur (performa, aksesibilitas, privasi) | Budget performa, baseline security | sedang |
+| 6 | Di luar cakupan disebut | Mencegah agent membangun hal yang tidak diminta | sedang |
+| 7 | Alur utama end-to-end | Kandidat e2e test | sedang |
+| 8 | Data sensitif diidentifikasi | Level ASVS, regulasi (UU PDP), logging | ya jika ada data pribadi |
+| 9 | ID requirement stabil | Rujukan di test, commit, dan `project/prd.md` | ringan — bisa dibuat saat setup |
+
+Butir "ya" yang tidak ada → tawarkan melengkapi lewat `prd-writer` (mode susun dari bahan) sebelum lanjut. PRD eksternal tanpa ID: buat ID `FR-<MODUL>-<NNN>` saat setup dan catat pemetaannya di `project/prd.md` › Sumber.
+
+## Pemetaan PRD format `prd-writer`
+
+| Bagian PRD | Masuk ke |
+|---|---|
+| §1–2 Ringkasan, latar belakang | `prd.md` › Ringkasan produk |
+| §3 Tujuan & metrik | `prd.md` › Metrik keberhasilan (+ kolom "yang perlu disiapkan di kode") |
+| §4 Persona, §8 Role | `prd.md` › Pengguna & role; `api-contract.md` › Matriks akses (backend) |
+| §5 Ruang lingkup | `prd.md` › Fitur (prioritas) dan Di luar cakupan |
+| §6 Alur pengguna | `prd.md` › Alur kritis |
+| §7 Timeline | `technical-requirements.md` › Syarat go-live |
+| §9 FR + AC | `prd.md` › Fitur — ID, prioritas, status; AC cukup dirujuk ("PRD §9") |
+| §10 NFR | `technical-requirements.md` › NFR, Baseline security, Locale |
+| §11 Data & entitas | `data-model.md` (backend); data sensitif → Baseline security |
+| §12 Integrasi | `architecture.md` › Integrasi; env di `technical-requirements.md` |
+| §13 Asumsi/risiko | `decisions.md` jika menyangkut teknis; sisanya cukup dirujuk |
+| §14 Pertanyaan terbuka | `prd.md` › Pertanyaan terbuka (rujuk nomornya) |
+
+## Pemetaan PRD format lain
 
 | Bagian PRD (nama bisa beda) | Masuk ke | Catatan |
 |---|---|---|

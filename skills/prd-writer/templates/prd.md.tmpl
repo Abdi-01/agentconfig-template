@@ -1,0 +1,133 @@
+# PRD — {{PRODUCT_NAME}}
+
+| | |
+|---|---|
+| **Versi** | {{VERSION}} |
+| **Status** | Draft |
+| **Tanggal** | {{DATE}} |
+| **Klien / pemilik produk** | {{CLIENT}} |
+| **Penyusun** | {{AUTHOR}} |
+
+Dokumen ini menjelaskan apa yang dibangun, untuk siapa, dan kapan dianggap berhasil. **Bagian 1** untuk semua stakeholder; **Bagian 2** untuk tim pengembang dan menjadi acuan acceptance test.
+
+---
+
+# Bagian 1 — Ringkasan untuk stakeholder
+
+## 1. Ringkasan eksekutif
+
+<!-- AI: 4–6 kalimat tanpa istilah teknis: produk apa, masalah siapa yang diselesaikan, cara menyelesaikannya, hasil yang diharapkan, dan cakupan rilis pertama. -->
+
+## 2. Latar belakang & masalah
+
+<!-- AI: kondisi sekarang, masalah utama (dengan data/angka dari klien jika ada), dampak jika tidak diselesaikan. Bedakan fakta dari klien dan asumsi ([ASUMSI]). -->
+
+## 3. Tujuan & metrik keberhasilan
+
+| Tujuan | Metrik | Target | Cara ukur |
+|---|---|---|---|
+<!-- AI: 2–5 baris. Target berupa angka + jangka waktu (mis. "≥ 30% booking lewat website dalam 3 bulan setelah rilis"). Cara ukur menyebut sumber data (analytics, database, laporan CRM). -->
+
+## 4. Target pengguna & persona
+
+<!-- AI: 2–4 persona: nama + peran, kebutuhan/tujuan, hambatan saat ini, konteks pakai (perangkat, frekuensi). Persona ≠ role sistem; role ada di §8. -->
+
+## 5. Ruang lingkup
+
+### MVP (rilis pertama)
+<!-- AI: daftar modul/kemampuan dengan rujukan ID FR, mis. "- Booking appointment online (FR-BOOK-001 – FR-BOOK-004)". -->
+
+### Fase berikutnya
+<!-- AI: daftar dengan rujukan ID FR berprioritas "Fase 2"/"Nanti". "—" jika belum ada. -->
+
+### Di luar cakupan
+<!-- AI: hal yang eksplisit TIDAK dikerjakan (mencegah scope creep). Minimal satu butir. -->
+
+## 6. Alur pengguna utama
+
+<!-- AI: 3–7 alur end-to-end, masing-masing: nama alur, aktor, langkah bernomor (singkat), dan FR terkait. Alur ini menjadi kandidat e2e test. -->
+
+## 7. Timeline & milestone
+
+| Milestone | Isi | Target tanggal | Kriteria selesai |
+|---|---|---|---|
+<!-- AI: milestone yang disepakati (mis. desain disetujui, MVP staging, UAT, go-live). Jika belum disepakati, tulis TODO dan masukkan ke §14. -->
+
+---
+
+# Bagian 2 — Spesifikasi untuk tim pengembang
+
+## 8. Role & hak akses
+
+| Role | Deskripsi | Cara masuk | Hak utama |
+|---|---|---|---|
+<!-- AI: satu baris per role sistem (mis. pengunjung, customer, admin, staf). Hak utama per domain: lihat/buat/ubah/hapus, milik sendiri atau semua. -->
+
+## 9. Functional requirements
+
+Format ID: `FR-<MODUL>-<NNN>`. Prioritas: **MVP**, **Fase 2**, atau **Nanti**. Acceptance criteria memakai pola *Diberikan … ketika … maka …* dan harus bisa diuji.
+
+<!-- AI: satu subbagian per modul, contoh struktur:
+
+### Modul: Booking (`BOOK`)
+
+#### FR-BOOK-001 · Pilih jadwal dokter
+- **Prioritas:** MVP
+- **User story:** Sebagai customer, saya ingin melihat slot dokter yang tersedia agar bisa memilih jadwal tanpa menelepon klinik.
+- **Acceptance criteria:**
+  - [AC-1] Diberikan dokter punya jadwal praktik, ketika customer membuka halaman booking, maka hanya slot yang belum terisi dalam 14 hari ke depan yang ditampilkan.
+  - [AC-2] Diberikan slot sudah dipesan orang lain, ketika customer mengonfirmasi slot itu, maka booking ditolak dengan pesan untuk memilih slot lain.
+- **Catatan:** (opsional) aturan bisnis, edge case, rujukan desain.
+
+Hapus komentar contoh ini setelah diisi. -->
+
+## 10. Non-functional requirements
+
+| ID | Kategori | Requirement | Target terukur | Cara verifikasi |
+|---|---|---|---|---|
+<!-- AI: format ID `NFR-<KAT>-<NNN>`; KAT: PERF, SEC, PRIV, AVAIL, A11Y, SEO, LOC, USAB, MAINT, COMP, OBS. Target harus angka/standar (mis. "LCP ≤ 2,5 s p75 mobile", "WCAG 2.1 AA", "data pribadi sesuai UU PDP"). -->
+
+## 11. Data & entitas
+
+| Entitas | Deskripsi | Atribut penting | Sensitif? |
+|---|---|---|---|
+<!-- AI: entitas bisnis (bukan schema database). Kolom Sensitif: data pribadi/kesehatan/keuangan → "ya" + kategori. Tambahkan aturan bisnis lintas entitas di bawah tabel (kuota, status, keunikan). -->
+
+## 12. Integrasi pihak ketiga
+
+| Layanan | Kegunaan | Pemilik akun | Biaya/kuota | Prioritas |
+|---|---|---|---|---|
+<!-- AI: payment, email/WA, maps, storage, AI, analytics, dll. "—" jika tidak ada. -->
+
+## 13. Asumsi, risiko & dependensi
+
+| Jenis | Deskripsi | Dampak jika salah/terjadi | Mitigasi |
+|---|---|---|---|
+<!-- AI: Jenis = Asumsi / Risiko / Dependensi. Semua jawaban "pakai default" dan semua label [ASUMSI] di dokumen masuk ke sini. -->
+
+## 14. Pertanyaan terbuka
+
+| # | Pertanyaan | Pemilik | Tenggat | Status |
+|---|---|---|---|---|
+<!-- AI: pertanyaan yang belum dijawab; Pemilik = klien / tim dev / Abdi. Status: Terbuka / Terjawab (pindahkan jawabannya ke bagian terkait). -->
+
+## 15. Glosarium
+
+<!-- AI: istilah domain dan singkatan yang dipakai dokumen. "—" jika tidak perlu. -->
+
+---
+
+# Lampiran
+
+## Riwayat versi
+
+| Versi | Tanggal | Perubahan | FR/NFR terdampak |
+|---|---|---|---|
+| {{VERSION}} | {{DATE}} | Draft awal | — |
+
+## Persetujuan
+
+| Nama | Peran | Tanggal | Keputusan |
+|---|---|---|---|
+| | Klien | | |
+| | Penyusun | | |

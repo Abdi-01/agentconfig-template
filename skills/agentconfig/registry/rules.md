@@ -1,6 +1,6 @@
 # Registry ID aturan
 
-Indeks ID aturan → lokasi di `templates/agentconfig/standards/` (template v0.2.1). Dibuat otomatis oleh `scripts/build-registry.mjs`; jangan diedit manual. Baca saat membandingkan audit project baru dengan aturan yang sudah ada, atau saat mencari di mana suatu ID diterapkan.
+Indeks ID aturan → lokasi di `templates/agentconfig/standards/` (template v0.2.2). Dibuat otomatis oleh `scripts/build-registry.mjs`; jangan diedit manual. Baca saat membandingkan audit project baru dengan aturan yang sudah ada, atau saat mencari di mana suatu ID diterapkan.
 
 ## Prefix
 

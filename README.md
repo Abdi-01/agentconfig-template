@@ -1,71 +1,53 @@
 # agentconfig-template
 
-Template master + skill Claude Code untuk memasang aturan AI coding agent ke repo JS/TS: `AGENTS.md` sebagai router, `agentconfig/standards/` yang reusable lintas project, dan `agentconfig/project/` yang diturunkan dari PRD atau audit kode.
+Kumpulan skill Claude Code untuk alur kerja project dengan AI coding agent: dari PRD sampai aturan agent di repo.
 
-Versi saat ini: lihat `VERSION` dan `CHANGELOG.md`.
+| Skill | Versi | Untuk |
+|---|---|---|
+| [`prd-writer`](skills/prd-writer/SKILL.md) | lihat `skills/prd-writer/VERSION` | Menyusun, melengkapi, atau merevisi PRD (klien + developer) dari ide, brief, transkrip, atau PRD format lain |
+| [`agentconfig`](skills/agentconfig/SKILL.md) | lihat `skills/agentconfig/VERSION` | Memasang/sync `AGENTS.md` + `agentconfig/` (standards reusable + project dari PRD) ke repo, atau mengaudit project lama |
 
-## Hasil di repo project
+## Alur
 
 ```
-AGENTS.md                 ← router ≤100 baris (blok framework seperti Next.js dipertahankan)
-CLAUDE.md                 ← @AGENTS.md
-agentconfig/
-  README.md               ← versi template, legenda label, topologi
-  .template-lock.json     ← hash standards/ (untuk sync)
-  standards/              ← disalin identik dari templates/ — JANGAN diedit per project
-  project/                ← prd, technical-requirements, architecture, decisions,
-                            + design-system (FE), api-contract, data-model (BE)
-  _audit/                 ← laporan audit (project lama) + cadangan instruksi lama
+Ide / brief / meeting ──► prd-writer ──► docs/prd/prd.md (+ dokumen untuk klien)
+                                               │
+PRD dari klien (PDF/DOCX) ─────────────────────┤  (kurang lengkap? → prd-writer mode "susun dari bahan")
+                                               ▼
+                 create-next-app / init backend ──► agentconfig ──► vibe coding
+                                                       ▲
+                       template versi baru ── sync ────┘
 ```
 
-Hasilnya Markdown biasa, jadi bisa dibaca agent apa pun (Claude Code, Codex, Cursor, Copilot) lewat `AGENTS.md`. Skill-nya sendiri khusus Claude Code; agent lain bisa memakai script di `scripts/` secara langsung.
+Kedua skill memakai skema ID yang sama — `FR-<MODUL>-<NNN>` dan `NFR-<KAT>-<NNN>` — sehingga requirement di PRD bisa dilacak sampai `agentconfig/project/prd.md`, test, dan commit.
 
-## Instalasi (Claude Code)
+## Instalasi
 
 ```bash
-git clone git@github.com:Abdi-01/agentconfig-template.git ~/.claude/skills/agentconfig
+git clone git@github.com:Abdi-01/agentconfig-template.git ~/.claude/agentconfig-template
+~/.claude/agentconfig-template/install.sh
 ```
 
-Skill tersedia di semua project. Update: `git -C ~/.claude/skills/agentconfig pull`.
+`install.sh` membuat symlink `~/.claude/skills/<skill>` → `skills/<skill>` untuk setiap skill, jadi `git pull` langsung memperbarui semuanya. Restart Claude Code, lalu cek dengan `/prd-writer` dan `/agentconfig`.
 
-## Pemakaian
-
-Di Claude Code, dari root repo project:
-
-| Situasi | Ketik |
+| Kebutuhan | Perintah |
 |---|---|
-| Project baru (mis. setelah `create-next-app`) | "jalankan skill agentconfig, PRD-nya di `docs/prd.pdf`" |
-| Project lama tanpa agentconfig | "audit project ini lalu pasang agentconfig" |
-| Template punya versi baru | "sync agentconfig ke versi terbaru" |
+| Update | `git -C ~/.claude/agentconfig-template pull` |
+| Symlink tidak didukung (mis. Windows tanpa Developer Mode) | `./install.sh --copy` (ulangi setelah setiap `pull`) |
+| Lokasi skill lain | `CLAUDE_SKILLS_DIR=/path ./install.sh` |
+| Copot | `./install.sh --uninstall` |
 
-Alur init: deteksi stack → konfirmasi → baca PRD → daftar pertanyaan gap (berhenti) → scaffold → isi `project/` → validasi → laporan. Detail: `SKILL.md`.
+**Pindah dari instalasi lama** (clone langsung ke `~/.claude/skills/agentconfig`): `rm -rf ~/.claude/skills/agentconfig`, lalu jalankan langkah di atas.
 
-Tanpa skill (agent lain atau manual):
+## Struktur
 
-```bash
-node scripts/detect.mjs   --target ../my-app
-node scripts/scaffold.mjs --target ../my-app --type frontend-web --repo-name my-app
-# isi semua penanda <!-- AI: … --> di AGENTS.md dan agentconfig/project/
-node scripts/check.mjs    --target ../my-app
+```
+install.sh
+skills/
+  prd-writer/    SKILL.md, VERSION, CHANGELOG.md, templates/, references/, scripts/
+  agentconfig/   SKILL.md, VERSION, CHANGELOG.md, templates/, references/, registry/, scripts/
 ```
 
-## Isi repo
+Setiap skill punya `VERSION` dan `CHANGELOG.md` sendiri. Skill baru = folder baru di `skills/` dengan `SKILL.md`; `install.sh` memasangnya otomatis.
 
-| Path | Isi |
-|---|---|
-| `SKILL.md` | instruksi skill (alur init/sync/audit) |
-| `templates/agentconfig/standards/` | standar reusable — **sumber kebenaran** |
-| `templates/agentconfig/project/*.tmpl` | kerangka dokumen per project |
-| `templates/root/` | `AGENTS.md.tmpl` |
-| `references/` | PRD → dokumen + checklist gap, prompt audit, katalog stack |
-| `registry/rules.md` | indeks ID aturan → lokasi (dibuat oleh script) |
-| `scripts/` | `detect`, `scaffold`, `check`, `build-registry` (Node ≥18, tanpa dependency) |
-
-## Mengubah standar
-
-1. Edit file di `templates/agentconfig/standards/` (aturan baru sebaiknya berasal dari audit project nyata).
-2. `node scripts/build-registry.mjs`
-3. Naikkan `VERSION` (patch = koreksi kata/contoh, minor = aturan baru/berubah, mayor = struktur berubah) dan tulis `CHANGELOG.md`, termasuk bagian **Saat sync** (apa yang perlu dilakukan di `project/` repo).
-4. Commit, lalu sync ke repo yang memakai template.
-
-Laporan audit lengkap tidak disimpan di repo ini karena berisi detail klien; tetap di `_audit/` repo project masing-masing.
+Script semua skill memakai Node ≥18 tanpa dependency, sehingga bisa juga dijalankan langsung oleh agent lain atau manual (lihat README masing-masing skill).

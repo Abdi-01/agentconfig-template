@@ -23,7 +23,7 @@ ID merujuk ke katalog kandidat di laporan audit project asal dan dipakai untuk m
 | `BU-` | audit backend #1 (Express + Prisma), 2026-10-13 | universal |
 | `BS-` | idem | spesifik stack |
 
-Indeks ID → file ada di `registry/rules.md` repo template (`agentconfig-template`). Laporan audit lengkap tidak disalin ke template karena berisi detail klien; laporan tetap di `_audit/` repo project asal.
+Indeks ID → file ada di `skills/agentconfig/registry/rules.md` repo template (`agentconfig-template`). Laporan audit lengkap tidak disalin ke template karena berisi detail klien; laporan tetap di `_audit/` repo project asal.
 
 Audit project baru mendaftarkan prefix baru di tabel ini dan di registry template (mis. `CU-`/`CS-`). Aturan yang sama dengan aturan yang sudah ada memakai ID lama dan menambah bukti, bukan ID baru.
 
