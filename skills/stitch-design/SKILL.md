@@ -17,7 +17,7 @@ Menjembatani PRD dan kode lewat Google Stitch: **daftar layar → prompt per bat
   - **Publik** (`public`: landing, katalog, detail produk/layanan, checkout, login): boleh hero, galeri, kartu bergambar, dan komponen yang dituntut FR (mis. kalender booking), tetapi tanpa section karangan (testimoni, paket harga, newsletter, chat widget, statistik) yang tidak ada di PRD. Blok prompt: **Public page rules**.
 - **Maksimal 5 layar per prompt.** Stitch tidak stabil di atas itu (gaya melenceng, layar terlewat). Satu revisi kecil = satu perubahan per prompt.
 - **Export adalah referensi, bukan kode.** HTML Stitch tidak disalin ke `src/`. Yang dibawa ke repo: token, screenshot/HTML sebagai acuan visual, dan pemetaan kelas export ke token project (aturan S-21 di `standards/stack/shadcn-base-ui-tailwind4.md` jika repo memakai agentconfig).
-- **Tool lain = skill lain.** Skill ini khusus Stitch. Jika suatu saat pindah ke tool desain lain, buat skill terpisah dengan pola yang sama; `docs/design/screens.md` tetap dipakai ulang.
+- **Tool lain = skill lain.** Skill ini khusus Stitch; untuk Figma pakai skill `figma-design`. Keduanya memakai `docs/design/screens.md`, `check-design.mjs` (stage screens), `screen-inventory.md`, dan `review-checklist.md` dari skill ini. Jika user belum memilih tool, tanyakan dulu (lihat `prd-writer` Fase 6).
 - Bahasa dokumen: Indonesia; prompt Stitch: Inggris (hasil Stitch lebih konsisten). Label UI di prompt mengikuti bahasa produk (tanyakan di Fase 2).
 
 Titik berhenti wajib ditandai ⛔.

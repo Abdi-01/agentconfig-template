@@ -1,5 +1,9 @@
 # Changelog — stitch-design
 
+## v0.2.2 — 2026-10-15
+
+Bagian tool-agnostik (template `screens.md`, `check-design --stage screens`, `screen-inventory.md`, `review-checklist.md`, template build-plan) kini dipakai bersama oleh skill baru `figma-design`; teksnya dibuat netral tool. Tidak ada perubahan perilaku.
+
 ## v0.2.1 — 2026-10-15
 
 Perbaikan hasil review.

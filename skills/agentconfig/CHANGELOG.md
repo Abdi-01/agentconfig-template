@@ -2,6 +2,15 @@
 
 Riwayat versi `templates/agentconfig/standards/` dan kerangka `project/`. Setiap versi menyebut apa yang perlu dilakukan di repo saat sync.
 
+## v0.3.1 — 2026-10-15
+
+Dukungan skill desain kedua `figma-design`. `standards/` tidak berubah.
+
+- Alur skill: Langkah 4 dan 6 membaca pilihan tool di `docs/prd/_discovery.md` › Keputusan desain (`stitch-design` / `figma-design`); jika belum ada, menanyakan preferensi dengan pilihan yang sama seperti `prd-writer`.
+- `design-system.md.tmpl`: Sumber desain mencatat tool + link Figma; tabel pemetaan juga untuk nama variable Figma. Legenda `[DESAIN]` mencakup variables/frame Figma.
+
+**Saat sync dari v0.3.0:** tidak ada perubahan wajib di repo.
+
 ## v0.3.0 — 2026-10-15
 
 Integrasi dengan skill baru `stitch-design` (desain UI dari PRD lewat Google Stitch, output `docs/design/`). `standards/` tidak berubah.

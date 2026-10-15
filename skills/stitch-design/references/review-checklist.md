@@ -1,6 +1,8 @@
-# Checklist review hasil Stitch
+# Checklist review hasil desain
 
-Dibaca di Fase 4. Bandingkan screenshot dengan baris layar di `screens.md` dan FR yang dirujuk.
+Dipakai bersama oleh `stitch-design` dan `figma-design` (tool-agnostik).
+
+Dibaca di fase review. Bandingkan screenshot dengan baris layar di `screens.md` dan FR yang dirujuk.
 
 ## Buang (tidak ada di PRD)
 

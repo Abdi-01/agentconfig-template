@@ -73,7 +73,16 @@ Laporkan ke user secara ringkas (bukan isi PRD): statistik dari `check-prd` (mod
 1. **Dokumen klien:** jika sesi punya tool dokumen bersama (mis. Claude Docs atau konektor Google Docs), buat dokumen dari `prd.md` yang final; jika tidak, tawarkan file `.docx`/`.pdf` lewat skill dokumen yang tersedia. Markdown tetap sumber kebenaran — perubahan berikutnya dilakukan di Markdown lalu dokumen dibuat ulang. Claude tidak mengirim apa pun ke klien; user yang mengirim.
 2. **Persetujuan:** saat klien menyetujui, isi tabel Persetujuan, ubah Status ke "Disetujui", naikkan versi ke `1.0`.
 3. **Serah ke agentconfig:** jika repo sudah punya `agentconfig/`, tawarkan memperbarui `agentconfig/project/prd.md` (status per FR). Jika belum, tawarkan menjalankan skill `agentconfig` mode init dengan PRD ini.
-4. **Serah ke desain:** jika produk punya UI dan belum ada `docs/design/`, sebutkan bahwa setelah `agentconfig` langkah berikutnya adalah skill `stitch-design` (daftar layar dari FR → prompt Stitch → handoff token). Jika `docs/design/` sudah ada dan PRD direvisi, tawarkan `stitch-design` Langkah R.
+4. **Preferensi desain** (produk ber-UI, setelah PRD disepakati): ⛔ tanyakan satu pertanyaan, catat jawabannya di `_discovery.md` › Keputusan desain:
+
+   | Pilihan | Lanjut ke | Cocok jika |
+   |---|---|---|
+   | **Google Stitch** | `stitch-design` | Butuh desain cepat dari prompt; user menjalankan prompt di Stitch |
+   | **Figma — agent menggambar** | `figma-design` mode gambar | Punya seat Figma Dev/Full; ingin file Figma yang bisa diedit desainer/klien |
+   | **Figma — desainer menggambar / desain sudah ada** | `figma-design` mode review | Ada desainer atau file Figma dari klien |
+   | **Tanpa desain khusus** | langsung `agentconfig` | Prototipe/internal tool; cukup preset UI library, brand minimal di `design-system.md` |
+
+   Default saran: Stitch untuk dashboard internal dan MVP cepat; Figma jika klien/desainer akan ikut mengedit desain. Urutannya tetap `agentconfig` dulu, lalu skill desain. Jika `docs/design/` sudah ada dan PRD direvisi, tawarkan Langkah R di skill desain yang tercatat.
 
 ## Langkah R — Revisi PRD yang sudah ada
 
