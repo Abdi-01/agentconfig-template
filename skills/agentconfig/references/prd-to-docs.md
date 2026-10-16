@@ -48,6 +48,7 @@ Butir "ya" yang tidak ada → tawarkan melengkapi lewat `prd-writer` (mode susun
 | User flow / journey | `prd.md` › Alur kritis | Pilih 3–7 yang menyangkut uang, data pribadi, akses, atau inti produk |
 | NFR performa, uptime, SEO, aksesibilitas | `technical-requirements.md` › NFR | Ubah ke target terukur |
 | Security, privasi, regulasi | `technical-requirements.md` › Baseline security | Level ASVS + regulasi |
+| AC penyalahgunaan, alur kritis, data sensitif | `threat-model.md` | Satu ancaman per penyalahgunaan; kategori OWASP; kontrol + test |
 | Bahasa, wilayah, mata uang | `technical-requirements.md` › Locale & format | Timezone produk wajib eksplisit |
 | Brand, warna, font, moodboard, Figma | `design-system.md` › Brand | Frontend/fullstack |
 | Daftar layar, wireframe, desain Stitch/Figma (`docs/design/`) | `design-system.md` › Sumber desain, token, pemetaan kelas export/variable | Label `[DESAIN]`; desain belum ada → skill desain sesuai Keputusan desain (`stitch-design` / `figma-design`) |
@@ -68,7 +69,8 @@ Tanyakan hanya yang relevan dengan tipe project, bernomor, masing-masing dengan 
 2. **Hosting & lingkungan:** platform deploy; apakah ada staging; apakah dev dan production memakai database/layanan terpisah? (Default: terpisah — dev tidak pernah menyentuh data nyata.)
 3. **Auth:** metode login (email/HP + password, OAuth, magic link), penyimpanan sesi (cookie `httpOnly` vs token di storage), masa berlaku, reset password. (Default: cookie `httpOnly`, lihat `standards/security.md`.)
 4. **Role & akses:** daftar role dan siapa boleh apa — minimal per domain.
-5. **Data pribadi & regulasi:** data apa yang disimpan (identitas, kesehatan, keuangan, anak)? Regulasi (UU PDP)? Level ASVS target? (Default: L2 jika ada data pribadi.)
+5. **Data pribadi & regulasi:** data apa yang disimpan (identitas, kesehatan, keuangan, anak)? Regulasi (UU PDP)? Level ASVS target? (Default: L1 jika tanpa data pribadi; L2 jika ada data pribadi/kesehatan/keuangan; L3 hanya jika diminta regulasi/klien.)
+5a. **Fitur AI/LLM:** apakah produk mengirim data ke model AI atau menampilkan keluarannya? Data apa yang dikirim? Apakah model boleh memicu aksi? (Menentukan berlakunya LLM Top 10:2026 / Agentic Top 10.)
 6. **Locale:** bahasa UI dan pesan error, apakah multi-bahasa, locale format, mata uang, **timezone produk**, bahasa komentar kode dan commit.
 7. **Waktu:** ada jadwal/slot/jam operasional? Jika ya, tegaskan beda *instant* vs *wall-clock* (lihat `standards/coding-style.md` U-03).
 8. **Integrasi pihak ketiga:** layanan apa saja, siapa pemegang akun/kunci, ada kuota/biaya per panggilan?

@@ -32,6 +32,8 @@ Versi, environment, lingkungan, locale, NFR, baseline security, dan daftar prior
 
 - **Level OWASP ASVS target:** <!-- AI: L1 / L2 / L3 + alasan (data pribadi/medis/finansial → minimal L2). -->
 - **Regulasi data:** <!-- AI: mis. UU PDP (UU 27/2022) untuk data pribadi; sebutkan kategori data spesifik jika ada (kesehatan, keuangan, anak). "—" jika tidak menyimpan data pribadi. -->
+- **Fitur AI/LLM:** <!-- AI: tidak ada / ada (layanan + data yang dikirim) → berlaku `../standards/security.md` › Fitur AI/LLM (LLM Top 10:2026); agent/tool-calling → juga Top 10 for Agentic Applications. -->
+- **Threat model:** `threat-model.md`.
 - **Audit/pentest:** <!-- AI: jadwal (mis. sebelum go-live dan tiap rilis mayor) atau "TODO — belum dijadwalkan". -->
 - Acuan versi OWASP dan aturan kode: `../standards/security.md`.
 
@@ -43,7 +45,7 @@ Versi, environment, lingkungan, locale, NFR, baseline security, dan daftar prior
 
 ## Syarat go-live
 
-<!-- AI: checklist yang WAJIB selesai sebelum production dengan data nyata (security P0, pemisahan DB, backup, monitoring, dll.). Format "- [ ] …". "—" jika sudah production atau tidak relevan. -->
+<!-- AI: checklist yang WAJIB selesai sebelum production dengan data nyata: semua P0 security, ancaman [TIDAK ADA] di threat-model.md yang bukan risiko diterima, checklist keamanan go-live di LIFECYCLE.md fase 8, pemisahan DB, backup, monitoring. Format "- [ ] …". "—" jika sudah production atau tidak relevan. -->
 
 ## Prioritas perbaikan & tech debt
 

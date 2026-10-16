@@ -1,6 +1,6 @@
 # Registry ID aturan
 
-Indeks ID aturan → lokasi di `templates/agentconfig/standards/` (template v0.4.0). Dibuat otomatis oleh `scripts/build-registry.mjs`; jangan diedit manual. Baca saat membandingkan audit project baru dengan aturan yang sudah ada, atau saat mencari di mana suatu ID diterapkan.
+Indeks ID aturan → lokasi di `templates/agentconfig/standards/` (template v0.5.0). Dibuat otomatis oleh `scripts/build-registry.mjs`; jangan diedit manual. Baca saat membandingkan audit project baru dengan aturan yang sudah ada, atau saat mencari di mana suatu ID diterapkan.
 
 ## Prefix
 
@@ -86,6 +86,8 @@ Prefix baru didaftarkan di `PREFIXES` script ini dan di `standards/README.md`. B
 | TU-04 | `coding-style.md` › Kesederhanaan |
 | TU-05 | `coding-style.md` › Kesederhanaan |
 | TU-06 | `coding-style.md` › Kesederhanaan |
+| TU-07 | `security.md` › Acuan OWASP |
+| TU-08 | `security.md` › Fitur AI/LLM |
 | U-01 | `coding-style.md` › Frontend |
 | U-02 | `coding-style.md` › Kesederhanaan<br>`coding-style.md` › Prinsip umum |
 | U-03 | `coding-style.md` › Prinsip umum<br>`stack/tanstack-query-axios.md` › Tanggal & angka dari API |

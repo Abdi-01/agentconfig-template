@@ -2,6 +2,19 @@
 
 Riwayat versi `templates/agentconfig/standards/` dan kerangka `project/`. Setiap versi menyebut apa yang perlu dilakukan di repo saat sync.
 
+## v0.5.0 — 2026-10-16
+
+OWASP diterapkan di seluruh siklus, bukan hanya saat coding.
+
+- `standards/security.md`: acuan baru **OWASP Top 10 for LLM Applications 2026** dan **Top 10 for Agentic Applications (Des 2025)** — berlaku hanya jika project memakai LLM/agent; bagian baru **Fitur AI/LLM** (TU-08, LLM01–LLM10); bagian penerapan di requirement, desain (**threat model**, TU-07), dan rilis.
+- `standards/testing/security.md`: baris matriks untuk LLM01, LLM02/LLM10, LLM06; aturan setiap ancaman `TM-xx` punya test.
+- `standards/definition-of-done.md`: perubahan alur kritis/auth/data sensitif/AI → perbarui `project/threat-model.md`.
+- Baru: `project/threat-model.md.tmpl` (aset, ancaman per alur kritis → kategori OWASP → kontrol → test, risiko yang diterima), dibuat oleh scaffold untuk semua tipe project.
+- `technical-requirements.md.tmpl`: baris Fitur AI/LLM dan Threat model di Baseline security; Syarat go-live merujuk threat model dan checklist keamanan.
+- `references/prd-to-docs.md`: gap check level ASVS dengan default per jenis data, pertanyaan fitur AI; pemetaan AC penyalahgunaan → threat model.
+
+**Saat sync dari v0.4.x:** `standards/security.md`, `testing/security.md`, `definition-of-done.md` berubah. Buat `agentconfig/project/threat-model.md` dari template (`templates/agentconfig/project/threat-model.md.tmpl`) dan tambahkan barisnya ke `project/README.md` › Peta file. Repo yang sudah punya audit security (mis. daftar P0) bisa langsung memindahkan temuannya menjadi baris `TM-xx`.
+
 ## v0.4.0 — 2026-10-15
 
 Prinsip **kesederhanaan kode** menjadi aturan standar (prefix baru `TU-` = keputusan pemilik template).

@@ -49,7 +49,9 @@ Bank pertanyaan untuk menyusun PRD, dikelompokkan per ronde. Dibaca di Fase 2 SK
 ## Ronde 5 — Non-functional
 
 1. Bahasa UI (satu atau multi-bahasa), format tanggal, mata uang, zona waktu. → Default: Bahasa Indonesia, `id-ID`, Rupiah, `Asia/Jakarta`.
-2. Data pribadi apa yang disimpan? Ada data kesehatan, keuangan, atau anak? → menentukan level keamanan dan kewajiban UU PDP (consent, hak hapus data).
+2. Data pribadi apa yang disimpan? Ada data kesehatan, keuangan, atau anak? → menentukan kewajiban UU PDP (consent, hak hapus data) dan **level OWASP ASVS** target. → Default: L1 tanpa data pribadi; **L2** jika ada data pribadi/kesehatan/keuangan; L3 hanya jika diminta regulasi/klien.
+2a. Ada fitur AI (chatbot, ringkasan, analisis foto/dokumen dengan model)? Data apa yang dikirim ke penyedia AI, dan apakah AI boleh memicu aksi (mengirim pesan, mengubah data)? → menentukan NFR untuk LLM Top 10:2026.
+2b. Siapa yang **tidak boleh** melihat atau mengubah apa? (mis. customer lain, staf di cabang lain, role tertentu) → bahan AC penyalahgunaan.
 3. Performa: perkiraan jumlah pengguna/transaksi; halaman yang harus cepat. → Default: target Core Web Vitals "Good" di halaman publik.
 4. SEO penting? Halaman mana yang harus muncul di Google?
 5. Aksesibilitas. → Default: WCAG 2.1 AA untuk halaman publik.

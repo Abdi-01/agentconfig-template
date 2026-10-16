@@ -61,12 +61,13 @@ Jika `.gitignore` mengabaikan `AGENTS.md`, `CLAUDE.md`, atau `agentconfig/`: ⛔
 
 ## Langkah 4 — Isi project/ dan AGENTS.md
 
-Ganti setiap penanda `<!-- AI: … -->` dengan isi (instruksi ada di dalam penanda), lalu hapus penandanya. Urutan: `prd.md` → `technical-requirements.md` → `architecture.md` → `decisions.md` (satu entri per jawaban gap) → file per tipe (`design-system.md`, `api-contract.md`, `data-model.md`) → `project/README.md` → `agentconfig/README.md` (topologi) → `AGENTS.md` (overview, peringatan, env).
+Ganti setiap penanda `<!-- AI: … -->` dengan isi (instruksi ada di dalam penanda), lalu hapus penandanya. Urutan: `prd.md` → `technical-requirements.md` → `architecture.md` → `threat-model.md` → `decisions.md` (satu entri per jawaban gap) → file per tipe (`design-system.md`, `api-contract.md`, `data-model.md`) → `project/README.md` → `agentconfig/README.md` (topologi) → `AGENTS.md` (overview, peringatan, env).
 
 Aturan pengisian:
 - Label: `[PRD]` untuk yang berasal dari PRD, `[KEPUTUSAN]` untuk jawaban user, `[TERBUKTI]`/`[DISIMPULKAN]`/`[TIDAK ADA]` + path untuk yang dibaca dari kode.
 - Jangan menyalin isi `standards/` ke `project/`; rujuk saja. `project/` hanya memuat yang spesifik repo ini atau penyimpangan.
 - Bagian yang tidak relevan: tulis `—`, jangan hapus heading (kecuali instruksi penanda menyuruh menghapus file).
+- `threat-model.md` (TU-07): satu baris ancaman per penyalahgunaan yang masuk akal untuk setiap alur kritis di `prd.md` (minimal: akses data milik user lain, eskalasi role, manipulasi nilai/kuota, data sensitif bocor lewat response/log; plus LLM01/LLM02/LLM06/LLM10 jika ada fitur AI). Setiap ancaman punya kontrol yang merujuk `standards/security.md` dan test yang direncanakan. Profil S boleh satu tabel ringkas.
 - `design-system.md`: jika `docs/design/` sudah ada (hasil skill `stitch-design` atau `figma-design`), ambil Brand, token, dan pemetaan kelas export/variable dari sana dengan label `[DESAIN]`. Jika belum ada, isi yang diketahui dari PRD, tulis `TODO` untuk token, dan sarankan skill desain sesuai pilihan di `docs/prd/_discovery.md` › Keputusan desain.
 - Jika ada cadangan di `_audit/legacy/`: pindahkan aturan lama yang masih benar ke file `project/` yang sesuai (atau catat sebagai usulan template), lalu laporkan daftar aturan yang dibuang beserta alasannya.
 

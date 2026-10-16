@@ -1,5 +1,9 @@
 # Changelog — prd-writer
 
+## v0.1.4 — 2026-10-16
+
+Security sejak requirement: discovery ronde 5 menanyakan **level OWASP ASVS** (default per jenis data), **fitur AI/LLM**, dan siapa yang tidak boleh mengakses apa; writing-guide mewajibkan **AC penyalahgunaan** untuk FR yang menyentuh data milik user lain/uang/role, NFR-SEC yang menyebut level ASVS, dan NFR untuk fitur AI (LLM Top 10:2026). `check-prd` memberi warning jika NFR-SEC tanpa ASVS, fitur AI tanpa NFR LLM, atau >1 role tanpa AC jalur ditolak.
+
 ## v0.1.3 — 2026-10-15
 
 Selaras dengan `LIFECYCLE.md`: intake menanyakan **profil project** S/M/L (dicatat di `_discovery.md`), menawarkan `delivery-plan` mode estimasi bila butuh angka penawaran, dan Fase 6 menyebut gate fase 1 secara eksplisit (langkah dinomori ulang: Preferensi desain = langkah 5).

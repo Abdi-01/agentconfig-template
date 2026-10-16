@@ -25,6 +25,7 @@ Aturan isi dan gaya PRD hasil skill `prd-writer`. Dibaca di Fase 3–4 SKILL.md 
   - Minimal 2 AC untuk FR prioritas MVP: satu jalur sukses, satu jalur gagal/edge case.
   - Hasil harus bisa dicek tanpa menafsirkan ("pesan error tampil dan booking tidak tersimpan", bukan "sistem menangani dengan baik").
   - Angka eksplisit: batas waktu, jumlah, format.
+- **AC penyalahgunaan:** FR yang menyentuh data milik user lain, uang/kuota, atau perbedaan role WAJIB punya minimal satu AC jalur ditolak, mis. *Diberikan customer A login, ketika membuka booking milik customer B lewat URL, maka akses ditolak dan data tidak tampil.* AC ini menjadi bahan `threat-model.md` dan test security.
 - **Prioritas** wajib: MVP / Fase 2 / Nanti. MVP = dibutuhkan agar alur utama di §6 berjalan end-to-end.
 
 ## Non-functional requirement yang baik
@@ -32,6 +33,8 @@ Aturan isi dan gaya PRD hasil skill `prd-writer`. Dibaca di Fase 3–4 SKILL.md 
 - Setiap NFR punya **target terukur** dan **cara verifikasi**. Kata seperti "cepat", "aman", "mudah", "user-friendly", "responsif" tanpa angka/standar tidak lolos.
 - Contoh target: `LCP ≤ 2,5 s (p75, mobile) di halaman beranda dan katalog — Lighthouse/RUM`; `WCAG 2.1 AA — audit axe + uji keyboard`; `Data kesehatan hanya terlihat oleh role dokter dan admin — test otorisasi`; `Format tanggal id-ID, zona Asia/Jakarta — review UI`.
 - Data pribadi/kesehatan/keuangan → minimal satu NFR `PRIV` (consent, akses, retensi, hak hapus) dan satu `SEC`.
+- **Baseline keamanan** ditulis sebagai NFR-SEC yang menyebut standar: *"Memenuhi OWASP ASVS 5.0 Level 2 — verifikasi: checklist ASVS sebelum go-live + test security"*. Level dari discovery ronde 5.
+- **Fitur AI** → NFR-SEC/PRIV yang menyebut OWASP Top 10 for LLM Applications 2026 dan batasan konkret: data apa yang boleh dikirim ke penyedia AI, kuota per user, disclaimer hasil AI.
 
 ## Metrik keberhasilan
 

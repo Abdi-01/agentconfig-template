@@ -137,6 +137,13 @@ if (!nfrRows.length) errors.push("§10 belum punya NFR.");
 const sensitive = tableRows(section(11)).some((r) => /\|\s*ya\b/i.test(r));
 if (sensitive && !nfrIds.some((i) => i.startsWith("NFR-PRIV"))) warnings.push("§11 ada data sensitif, tetapi belum ada NFR-PRIV (consent, akses, retensi, hak hapus).");
 if (sensitive && !nfrIds.some((i) => i.startsWith("NFR-SEC"))) warnings.push("§11 ada data sensitif, tetapi belum ada NFR-SEC.");
+const secRows = nfrRows.filter((r) => /NFR-SEC/.test(r));
+if (secRows.length && !secRows.some((r) => /ASVS/i.test(r))) warnings.push("NFR-SEC belum menyebut level OWASP ASVS (L1/L2/L3).");
+if (!secRows.length && !sensitive) warnings.push("Belum ada NFR-SEC — tetapkan minimal level OWASP ASVS (default L1).");
+// Fitur AI disebut tetapi tidak ada NFR yang merujuk LLM Top 10.
+if ((/\b(AI|LLM|GPT|RAG)\b/.test(text) || /chatbot|machine learning|model bahasa|kecerdasan buatan/i.test(text)) && !nfrRows.some((r) => /LLM/i.test(r))) warnings.push("PRD menyebut fitur AI, tetapi belum ada NFR yang merujuk OWASP LLM Top 10:2026.");
+// AC penyalahgunaan: FR dengan role/data milik orang lain sebaiknya punya jalur ditolak.
+if (roles.length > 1 && !acLines.some((l) => /ditolak|tidak berhak|tidak tampil|403|user lain|milik (orang|user|customer) lain/i.test(l))) warnings.push("Ada >1 role tetapi belum ada AC penyalahgunaan (jalur akses ditolak) — lihat writing-guide.");
 
 // --- Rujukan ID ------------------------------------------------------------------
 const allIds = new Set([...frs.map((f) => f.id), ...nfrIds]);

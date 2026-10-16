@@ -30,9 +30,14 @@ Standar menguji keamanan yang WAJIB mengacu ke standar OWASP edisi terbaru. Baca
 | API4 Resource consumption | List terbatas dan terpaginasi; upload/body di atas batas → 413/422; endpoint mahal dibatasi kuota → 429 | integration | — |
 | API9 Inventory | Daftar route aktif sama dengan kontrak kanonik (script pembanding) | CI/manual | — |
 | API10 Unsafe consumption | Response pihak ketiga yang aneh (field hilang, tipe salah, timeout) tidak membuat crash atau data rusak | integration | — |
+| LLM01 Prompt injection *(jika ada fitur LLM)* | Input berisi instruksi ("abaikan instruksi sebelumnya…", instruksi tersembunyi di dokumen) tidak mengubah perilaku, tidak membocorkan system prompt, tidak memicu aksi di luar izin | integration (model di-mock untuk logika; uji manual/eval terhadap model asli sebelum rilis) | — |
+| LLM02/LLM10 Output & data *(jika ada fitur LLM)* | Keluaran model yang tidak sesuai skema ditolak/ditangani; HTML/script di keluaran tampil sebagai teks; data user lain tidak muncul di prompt maupun keluaran | unit, integration | — |
+| LLM06 Konsumsi *(jika ada fitur LLM)* | Kuota per user dan batas ukuran input → 429/422; timeout layanan AI → pesan ramah, bukan crash | integration | — |
 | Frontend: sesi | Token kedaluwarsa → dibersihkan dan diarahkan ke login, bukan error "tidak ditemukan"; parameter `redirect` eksternal ditolak | integration, unit | WSTG-SESS-* |
 
 ## Aturan
+
+- Setiap baris di `project/threat-model.md` punya minimal satu test di matriks ini (rujuk ID ancaman di nama test, mis. `it("TM-03 A01/API1: …")`), atau alasan tertulis kenapa diuji manual.
 
 - Kegagalan test security memblokir merge.
 - Temuan yang belum bisa diperbaiki dicatat sebagai risiko di `project/technical-requirements.md` beserta kategori OWASP, prioritas, dan mitigasinya.

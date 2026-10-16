@@ -94,7 +94,7 @@ if (mode === "init") {
 
   // 2. File agentconfig lain + project/ sesuai tipe.
   const projectFiles = {
-    base: ["README.md", "prd.md", "technical-requirements.md", "architecture.md", "decisions.md"],
+    base: ["README.md", "prd.md", "technical-requirements.md", "architecture.md", "threat-model.md", "decisions.md"],
     "frontend-web": ["design-system.md", "api-contract.consumer.md"],
     backend: ["api-contract.owner.md", "data-model.md"],
     fullstack: ["design-system.md", "api-contract.owner.md", "data-model.md"],
@@ -103,6 +103,7 @@ if (mode === "init") {
     "prd.md": "sebelum menambah/mengubah fitur atau alur user; saat menentukan alur kritis yang wajib diuji",
     "technical-requirements.md": "saat butuh env var, versi, lingkungan, locale, NFR, baseline security, syarat go-live, atau daftar P0/P1/P2",
     "architecture.md": "sebelum menambah file/folder/fitur/provider/middleware/integrasi, atau mengubah alur data, auth, logging, deploy",
+    "threat-model.md": "sebelum membangun/mengubah alur kritis, auth/otorisasi, data sensitif, pembayaran, upload, atau fitur AI",
     "design-system.md": "sebelum mengubah UI, warna, font, atau menambah komponen reusable",
     "api-contract.consumer.md": "sebelum memanggil endpoint baru atau mengubah service/adapter",
     "api-contract.owner.md": "sebelum membuat/mengubah endpoint, guard role, bentuk request/response, atau konstanta yang dipakai konsumen",

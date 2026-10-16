@@ -68,6 +68,7 @@ const visit = (id, stack) => {
   state.set(id, "done");
 };
 for (const t of tasks) visit(t.id, []);
+if (!active.some((t) => /security|keamanan|threat/i.test(t.title))) warnings.push("Tidak ada task security (threat model, test security, scan CI, checklist go-live) — lihat references/estimation.md › Security wajib di rencana.");
 for (const type of ["uat", "release"]) if (!active.some((t) => t.type === type)) warnings.push(`Tidak ada task bertipe "${type}" — pekerjaan ${type === "uat" ? "UAT" : "deploy/serah terima"} belum dihitung.`);
 
 // --- Cakupan PRD & layar ------------------------------------------------------------
