@@ -12,6 +12,19 @@ Aturan penulisan kode yang tidak bergantung pada framework. Baca sebelum menulis
 
 Selama lint/format belum dikonfigurasi: ikuti gaya file di sekitarnya (kutip ganda, titik koma) dan JANGAN memformat ulang file yang tidak diubah.
 
+## Kesederhanaan (prioritas pertama)
+
+Tujuannya kode **paling sederhana yang memenuhi acceptance criteria** dan tetap efektif serta efisien. Jika aturan lain di file ini tampak menuntut lebih banyak kode, pilih tafsiran yang lebih sederhana dan catat alasannya bila ragu.
+
+1. **Pendekatan dulu, kode kemudian (TU-01).** Untuk tugas yang menyentuh lebih dari satu file atau menambah unit baru (endpoint, komponen, tabel), tulis pendekatan dalam 1–3 kalimat sebelum menulis kode: file yang diubah dan kenapa itu cara paling sederhana. Jika rencananya menyentuh >5 file atau menambah >~200 baris untuk satu FR, berhenti dan usulkan ke user — kemungkinan ada cara lebih kecil.
+2. **Hanya yang diminta (TU-02).** Kode hanya untuk FR/AC yang sedang dikerjakan. JANGAN menambah opsi, parameter, flag, konfigurasi, mode, atau "persiapan untuk nanti" yang tidak dipakai sekarang (YAGNI). JANGAN menulis ulang atau merapikan kode di luar tugas; usulkan sebagai tugas terpisah.
+3. **Pakai yang sudah ada (TU-03).** Urutan pilihan: kode yang sudah ada di repo (U-02) → fitur bawaan platform/framework/library yang sudah terpasang → kode baru yang kecil → dependency baru (U-13). Dependency baru JANGAN dipakai untuk sesuatu yang bisa ditulis jelas dalam ±20 baris.
+4. **Abstraksi menunggu bukti (TU-04).** Tanpa lapisan, interface, factory, generic, hook, atau helper baru sampai ada ≥2 pemakaian nyata. Struktur layer yang diwajibkan file stack (mis. route → controller → service → repository) tetap diikuti, tetapi isi tiap layer setipis mungkin. Kode yang lurus dan sedikit berulang lebih baik daripada abstraksi yang menebak masa depan.
+5. **Ukuran yang bisa dibaca (TU-05).** SEBAIKNYA fungsi ≤ ~40 baris, komponen/file ≤ ~300 baris, nesting ≤ 3 level, parameter ≤ 4 (lebih dari itu → satu objek). Melewati batas → pecah menurut tanggung jawab, bukan demi angka.
+6. **Efisien tanpa optimasi prematur (TU-06).** Hindari pemborosan yang jelas: query di dalam loop (N+1), fetch berulang data yang sama, perhitungan berat di setiap render, payload/kolom yang tidak dipakai. Optimasi lain (cache, memoization, denormalisasi, worker) hanya jika ada NFR atau hasil ukur yang menuntutnya, dan dicatat di `project/decisions.md`.
+
+Saat review diff sebelum menyatakan selesai: hapus kode, parameter, import, dan cabang yang tidak dipakai; tanyakan untuk setiap file baru "apakah ini perlu ada?" (lihat `definition-of-done.md`).
+
 ## Prinsip umum
 
 1. **Reuse dulu, baru tulis (U-02).** WAJIB mencari helper/modul yang sudah ada (grep nama fungsi; cek folder util, lib, hooks, components, middleware) sebelum menulis yang baru. Saat logika yang sama muncul untuk kedua kalinya, ekstrak ke modul bersama di commit yang sama. JANGAN membuat abstraksi generik sebelum dipakai di ≥2 tempat.

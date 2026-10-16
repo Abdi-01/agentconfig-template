@@ -6,12 +6,13 @@ import path from "node:path";
 import { SKILL_ROOT, TEMPLATES, TEMPLATE_VERSION, walk } from "./lib.mjs";
 
 const STD = path.join(TEMPLATES, "agentconfig", "standards");
-const ID = /\b(?:U|S|BU|BS|[A-Z]{1,3}U|[A-Z]{1,3}S)-\d{2}\b/g;
+const ID = /\b(?:U|S|BU|BS|TU|[A-Z]{1,3}U|[A-Z]{1,3}S)-\d{2}\b/g;
 const PREFIXES = {
   U: "universal — audit frontend #1 (2026-10-13)",
   S: "stack — audit frontend #1 (2026-10-13)",
   BU: "universal — audit backend #1 (2026-10-13)",
   BS: "stack — audit backend #1 (2026-10-13)",
+  TU: "universal — keputusan pemilik template (2026-10-15)",
 };
 
 const index = new Map();

@@ -62,6 +62,8 @@ Langkah 5 — Layar sisanya: <ID UI>, dirakit hanya dari komponen langkah 2–3.
 Langkah 6 — Data. Ganti mock dengan API/database per modul sesuai `project/architecture.md`; satu modul per PR.
 
 Jangan menambah fitur yang tidak ada di `docs/design/screens.md`. Berhenti dan tanya jika layar butuh komponen baru di luar daftar langkah 3.
+Tulis kode paling sederhana yang memenuhi AC (`agentconfig/standards/coding-style.md` › Kesederhanaan): rakit dari komponen yang ada, tanpa abstraksi baru sebelum dipakai di ≥2 layar, tanpa state/animasi/opsi yang tidak diminta.
+Jika `docs/delivery/tasks.md` ada, kerjakan sesuai urutan task dan rujuk ID task di setiap PR.
 ```
 
 Isi `<…>` dari `screens.md` dan `design-system.md`. Komponen yang disebut harus sesuai UI library di file stack repo (mis. shadcn/Base UI); jangan menyebut library lain.
