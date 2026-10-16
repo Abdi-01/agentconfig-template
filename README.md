@@ -85,10 +85,23 @@ docs/
 
 ### Install
 
+The repo is private, so you must be signed in to GitHub. The easiest way is the GitHub CLI (no SSH key needed):
+
 ```bash
-git clone git@github.com:Abdi-01/agentconfig-template.git ~/.claude/agentconfig-template
+gh auth login        # GitHub.com → HTTPS → Login with a web browser (once)
+gh repo clone Abdi-01/agentconfig-template ~/.claude/agentconfig-template
 ~/.claude/agentconfig-template/install.sh
 ```
+
+Do **not** use `sudo`: it runs as root (which has no GitHub credentials) and leaves root-owned files in `~/.claude`.
+
+Alternatives for the clone step:
+
+| Method | Command | Notes |
+|---|---|---|
+| HTTPS | `git clone https://github.com/Abdi-01/agentconfig-template.git ~/.claude/agentconfig-template` | When asked for a password, use a [Personal Access Token](https://github.com/settings/tokens), not your GitHub password |
+| SSH | `git clone git@github.com:Abdi-01/agentconfig-template.git ~/.claude/agentconfig-template` | Needs an SSH key added at GitHub → Settings → SSH and GPG keys; verify with `ssh -T git@github.com`. `Permission denied (publickey)` means no key is registered |
+| ZIP | Download the ZIP from the repo page, unzip to `~/.claude/agentconfig-template`, run `install.sh --copy` | No `git pull`; re-download to update |
 
 `install.sh` creates one symlink per skill: `~/.claude/skills/<skill>` → `skills/<skill>`. Restart Claude Code, then check that `/prd-writer`, `/agentconfig`, `/stitch-design`, `/figma-design`, and `/delivery-plan` are available (or ask Claude "which skills are available?").
 
