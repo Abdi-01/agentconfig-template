@@ -61,6 +61,10 @@ Label sumber: [KLIEN] dari klien/brief · [USER] dari penyusun · [ASUMSI] defau
 ## Keputusan outline
 
 <!-- Modul + kode, FR per modul + prioritas, kategori NFR, metrik — versi yang disetujui user. -->
+
+## Keputusan desain
+
+<!-- Tool desain yang dipilih setelah PRD disepakati: Stitch / Figma (gambar) / Figma (review) / tanpa desain khusus, + alasan dan tanggal. Dibaca oleh agentconfig dan skill desain. -->
 `);
   result.created.push("_discovery.md");
 }

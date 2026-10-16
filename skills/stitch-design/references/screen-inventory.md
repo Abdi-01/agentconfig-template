@@ -1,5 +1,7 @@
 # Menurunkan daftar layar dari PRD
 
+Dipakai bersama oleh `stitch-design` dan `figma-design`. Di `figma-design`, kolom Batch berarti urutan putaran kerja (≤5 layar per putaran review), bukan prompt.
+
 Dibaca di Fase 1. Tujuannya daftar layar yang **cukup untuk semua FR MVP dan tidak lebih**.
 
 ## Langkah

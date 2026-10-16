@@ -50,7 +50,7 @@ Butir "ya" yang tidak ada → tawarkan melengkapi lewat `prd-writer` (mode susun
 | Security, privasi, regulasi | `technical-requirements.md` › Baseline security | Level ASVS + regulasi |
 | Bahasa, wilayah, mata uang | `technical-requirements.md` › Locale & format | Timezone produk wajib eksplisit |
 | Brand, warna, font, moodboard, Figma | `design-system.md` › Brand | Frontend/fullstack |
-| Daftar layar, wireframe, desain Stitch (`docs/design/`) | `design-system.md` › Sumber desain, token, pemetaan kelas export | Label `[DESAIN]`; desain belum ada → skill `stitch-design` |
+| Daftar layar, wireframe, desain Stitch/Figma (`docs/design/`) | `design-system.md` › Sumber desain, token, pemetaan kelas export/variable | Label `[DESAIN]`; desain belum ada → skill desain sesuai Keputusan desain (`stitch-design` / `figma-design`) |
 | Integrasi (payment, email, WA, maps, AI, analytics) | `architecture.md` › Integrasi; env di `technical-requirements.md` | |
 | Entitas data, laporan, dashboard | `data-model.md` › Kelompok model (backend); `prd.md` › Fitur | Entitas dari kata benda di FR |
 | Aturan bisnis (kuota, jadwal, status, harga) | `data-model.md` › Invariant (backend); `prd.md` | Setiap invariant butuh cara penegakan di DB |
