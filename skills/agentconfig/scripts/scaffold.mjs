@@ -3,6 +3,9 @@
 //
 // Mode init (project belum punya agentconfig/):
 //   node scaffold.mjs --target <dir> --type <frontend-web|backend|fullstack> --repo-name <nama> [--dry-run]
+// Mode agent-files (tulis ulang .github/copilot-instructions.md dari blok aturan kritis AGENTS.md):
+//   node scaffold.mjs --target <dir> --mode agent-files
+// Init membuat file Copilot secara default; --agents none untuk melewati.
 // Mode sync (project sudah punya agentconfig/, perbarui standards/ ke versi template ini):
 //   node scaffold.mjs --target <dir> --mode sync [--force] [--dry-run]
 //
@@ -44,6 +47,22 @@ function writeLock() {
   for (const f of walk(SRC_STANDARDS)) files[f] = sha(path.join(SRC_STANDARDS, f));
   const lock = { templateVersion: TEMPLATE_VERSION, writtenAt: today(), standards: files };
   write("agentconfig/.template-lock.json", JSON.stringify(lock, null, 2) + "\n");
+}
+
+const CRITICAL = /<!-- BEGIN:agentconfig-critical -->[\s\S]*?<!-- END:agentconfig-critical -->/;
+
+// .github/copilot-instructions.md = rujukan ke AGENTS.md + salinan blok aturan kritis (sumber tunggal: AGENTS.md).
+function writeAgentFiles(agentsText) {
+  const block = (agentsText.match(CRITICAL) || [])[0];
+  if (!block) { summary.notes.push("AGENTS.md tidak punya blok aturan kritis — file Copilot tidak dibuat. Tambahkan blok dari templates/root/AGENTS.md.tmpl."); return; }
+  const rel = ".github/copilot-instructions.md";
+  const full = path.join(target, rel);
+  if (exists(full) && !fs.readFileSync(full, "utf8").includes("BEGIN:agentconfig-critical")) {
+    write("agentconfig/_audit/legacy/copilot-instructions.md", fs.readFileSync(full));
+    summary.backedUp.push(`${rel} → agentconfig/_audit/legacy/copilot-instructions.md`);
+  }
+  write(rel, `# Copilot instructions\n\nIkuti \`AGENTS.md\` di root repo dan file \`agentconfig/\` yang ditunjuknya. Blok di bawah adalah salinan aturan kritis dari \`AGENTS.md\` (jangan diedit di sini).\n\n${block}\n`);
+  summary.created.push(rel);
 }
 
 function detect() {
@@ -143,6 +162,7 @@ if (mode === "init") {
     .replace(/^\n+/, "");
   write("AGENTS.md", agentsTmpl);
   summary.created.push("AGENTS.md");
+  if (!String(args.agents || "copilot").split(",").includes("none")) writeAgentFiles(agentsTmpl);
 
   // 4. CLAUDE.md — hanya router.
   const claudePath = path.join(target, "CLAUDE.md");
@@ -203,8 +223,13 @@ else if (mode === "sync") {
     summary.planned = actions.map(([, rel, kind]) => `${kind}: ${rel}`);
     summary.notes.push(`${summary.conflicts.length} file berbeda dari template dan mungkin diedit lokal. Tidak ada file yang ditulis. Tampilkan diff ke user (lihat 'planned'); jika setuju, ulangi dengan --force.`);
   }
+} else if (mode === "agent-files") {
+  // Tulis ulang file instruksi agent lain dari AGENTS.md (setelah blok aturan kritis diubah, atau untuk repo lama).
+  const agentsPath = path.join(target, "AGENTS.md");
+  if (!exists(agentsPath)) fail("AGENTS.md tidak ditemukan.");
+  writeAgentFiles(fs.readFileSync(agentsPath, "utf8"));
 } else {
-  fail("--mode harus init atau sync");
+  fail("--mode harus init, sync, atau agent-files");
 }
 
 console.log(JSON.stringify(summary, null, 2));

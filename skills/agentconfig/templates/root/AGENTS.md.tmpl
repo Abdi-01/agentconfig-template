@@ -27,4 +27,16 @@ Router untuk AI coding agent (dan manusia) di repo ini. Detail aturan ada di `ag
 | `agentconfig/project/README.md` | mengerjakan fitur, mengubah arsitektur/kontrak API/UI/data, atau mengambil keputusan teknis |
 | `agentconfig/_audit/README.md` | mencari bukti di balik suatu aturan, atau melihat temuan audit yang belum dimigrasi |
 
-**Prinsip kode:** tulis solusi paling sederhana yang memenuhi acceptance criteria — tanpa fitur, opsi, atau abstraksi yang tidak diminta (`agentconfig/standards/coding-style.md` › Kesederhanaan). Tugas belum selesai sebelum checklist Definition of Done (`agentconfig/standards/definition-of-done.md`) dijalankan.
+## Aturan kritis
+
+<!-- BEGIN:agentconfig-critical -->
+Berlaku untuk semua agent. Disalin apa adanya ke `.github/copilot-instructions.md`; ubah di sini, lalu jalankan ulang `scaffold.mjs --mode agent-files`.
+
+1. Baca file yang ditunjuk Peta dokumen sebelum mengerjakan tugas terkait; jangan menebak aturan.
+2. Kode paling sederhana yang memenuhi acceptance criteria. Tulis pendekatan 1–3 kalimat dulu; berhenti dan usulkan jika perubahan menyentuh >5 file atau >~200 baris untuk satu requirement. Tanpa fitur, opsi, atau abstraksi yang tidak diminta (`agentconfig/standards/coding-style.md` › Kesederhanaan).
+3. Otorisasi dan validasi selalu di server. Jangan mengirim field rahasia di response, dan jangan menaruh secret di kode, log, atau commit (`agentconfig/standards/security.md`).
+4. Jangan menjalankan migrate, seed, reset, atau load test ke database bersama/production tanpa konfirmasi eksplisit user.
+5. Jangan mengedit `agentconfig/standards/`; penyimpangan dicatat di `agentconfig/project/decisions.md`.
+6. Tugas selesai hanya setelah Definition of Done (`agentconfig/standards/definition-of-done.md`) dijalankan dan dilaporkan: command + hasil + ringkasan diff.
+7. Jika mengikuti alur bertahap (skill atau rencana), berhenti di setiap titik ⛔ dan tunggu jawaban user.
+<!-- END:agentconfig-critical -->
