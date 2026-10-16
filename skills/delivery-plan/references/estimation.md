@@ -24,6 +24,16 @@ Patokan kasar (hari), untuk solusi paling sederhana yang memenuhi AC:
 | UAT satu milestone (persiapan data, sesi bersama klien, perbaikan kecil) | 1–1,5 |
 | Deploy production + checklist go-live | 1 |
 | Serah terima (dokumentasi admin, transfer akun) | 0,5–1 |
+| Threat model + test security satu milestone (matriks `testing/security.md` untuk FR milestone itu) | 0,5–1 |
+| CI: audit dependency + scan secret (sekali, di M1) | 0,5 |
+| Checklist keamanan go-live + scan baseline ke staging | 0,5–1 |
+| Pentest/audit eksternal (profil L, koordinasi + perbaikan) | 2–4 (pecah) |
+
+## Security wajib di rencana
+
+- **M1:** task CI audit dependency + scan secret, dan `threat-model.md` untuk alur kritis pertama.
+- **Setiap milestone fitur:** satu task tipe `test` berjudul "Test security …" yang menutup ancaman `TM-xx` milestone itu.
+- **Milestone terakhir:** checklist keamanan go-live (`LIFECYCLE.md` fase 8); profil L ditambah pentest/audit eksternal sebelum go-live.
 
 ## Buffer
 

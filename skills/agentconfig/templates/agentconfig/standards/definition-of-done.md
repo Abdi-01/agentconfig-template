@@ -27,6 +27,7 @@ Checklist yang WAJIB dijalankan agent sebelum menyatakan tugas selesai. Baca seb
 | Model, kolom, constraint, atau migration berubah | `project/data-model.md` (backend) dan ERD di kontrak kanonik |
 | Folder, layer, middleware, provider, atau alur data baru | `project/architecture.md` |
 | Token warna/font atau komponen reusable baru | `project/design-system.md` (frontend) |
+| Alur kritis, auth/otorisasi, data sensitif, pembayaran, upload, atau fitur AI berubah | `project/threat-model.md` (ancaman, kontrol, test) |
 | Dependency, env var, NFR, temuan security, atau tech debt berubah | `project/technical-requirements.md` |
 
 ## Laporan akhir

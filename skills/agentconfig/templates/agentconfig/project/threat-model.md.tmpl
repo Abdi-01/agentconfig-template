@@ -1,0 +1,29 @@
+# Threat Model — {{REPO_NAME}}
+
+Ancaman per alur kritis, dipetakan ke kategori OWASP, kontrol, dan test (TU-07, `../standards/security.md`). Baca sebelum membangun atau mengubah alur kritis, auth/otorisasi, data sensitif, pembayaran, upload, atau fitur AI; perbarui saat alur atau data berubah.
+
+Cara mengisi: untuk setiap alur kritis di `prd.md`, tanyakan "siapa yang bisa menyalahgunakan alur ini, dengan cara apa, dan apa yang rusak/bocor?". Pakai kategori OWASP Top 10:2025 (`A01`–`A10`), API Security Top 10:2023 (`API1`–`API10`), dan LLM Top 10:2026 (`LLM01`–`LLM10`) bila ada fitur AI. Profil S: cukup satu tabel untuk seluruh produk. Profil M/L: satu subbagian per alur kritis.
+
+## Aset & data sensitif
+
+| Aset | Sensitivitas | Siapa boleh akses |
+|---|---|---|
+<!-- AI: data pribadi/kesehatan/keuangan, kredensial, uang/kuota, file privat, akun admin — dari PRD §11 dan api-contract.md › Matriks akses. -->
+
+## Ancaman per alur kritis
+
+<!-- AI: struktur per alur:
+
+### <nama alur kritis> (<FR terkait>)
+
+| ID | Ancaman (penyalahgunaan) | Kategori | Kontrol | Test | Status |
+|---|---|---|---|---|---|
+| TM-01 | Customer mengganti ID booking di URL untuk melihat booking orang lain | A01 / API1 | cek kepemilikan di service (`../standards/security.md` › Otorisasi) | integration `TM-01 A01/API1 …` | [PRD] |
+
+ID TM-NN berurutan di seluruh file dan tidak dipakai ulang. Status: [PRD] (direncanakan), [TERBUKTI] + path (sudah ada kontrol & test), [TIDAK ADA] (risiko terbuka → technical-requirements.md › Prioritas). Hapus komentar ini setelah diisi. -->
+
+## Risiko yang diterima
+
+| ID | Risiko | Alasan diterima | Disetujui | Tinjau ulang |
+|---|---|---|---|---|
+<!-- AI: ancaman yang sengaja tidak dimitigasi sekarang (mis. token di localStorage di MVP), dengan persetujuan user/klien dan tanggal tinjau ulang. "—" jika tidak ada. -->

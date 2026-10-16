@@ -11,9 +11,16 @@ Aturan menulis kode yang aman untuk aplikasi web dan API, berbasis standar OWASP
 | OWASP ASVS | **5.0.0** (2025) | daftar kontrol yang diverifikasi; level target per project di `project/technical-requirements.md` |
 | OWASP WSTG | **4.2** (stabil; 5.0 masih dikembangkan) | prosedur pengujian — lihat `testing/security.md` |
 | OWASP Cheat Sheet Series | terbaru | detail implementasi per topik |
+| OWASP Top 10 for LLM Applications | **2026** (dipublikasikan Agustus 2026) | **hanya jika** project memakai LLM/GenAI (chat, ringkasan, klasifikasi, RAG, analisis gambar dengan model) — bagian "Fitur AI/LLM" |
+| OWASP Top 10 for Agentic Applications | **Desember 2025** | **hanya jika** LLM boleh memanggil tool/aksi (agent, function calling) |
 
 - Sebelum audit security, rilis besar, atau penambahan fitur yang menyentuh auth/data pribadi: cek owasp.org apakah ada edisi baru. Jika ada, perbarui tabel ini dan pemetaan di `testing/security.md`, lalu naikkan versi template.
 - Setiap temuan security dicatat dengan rujukan kategori, mis. `A01:2025`, `API3:2023`, atau nomor requirement ASVS.
+
+Penerapan di luar fase coding (dirujuk `LIFECYCLE.md`):
+- **Requirement:** level ASVS target dipilih saat PRD (`project/technical-requirements.md` › Baseline security); FR yang menyentuh data milik user lain, uang, atau role punya acceptance criteria penyalahgunaan.
+- **Desain (TU-07):** `project/threat-model.md` memetakan setiap alur kritis ke ancaman → kategori OWASP → kontrol → test, sebelum alur itu dibangun. Profil S boleh ringkas (satu tabel); profil M/L wajib per alur kritis.
+- **Rilis:** checklist keamanan go-live di `LIFECYCLE.md` fase 8.
 
 Peta kategori ke bagian file ini:
 
@@ -106,6 +113,21 @@ Peta kategori ke bagian file ini:
 ## Kontrak & inventaris endpoint (API9)
 
 - Semua endpoint yang aktif tercatat di kontrak kanonik beserta guard-nya; endpoint lama yang tidak dipakai dihapus, bukan dibiarkan.
+
+## Fitur AI/LLM (TU-08, jika ada — LLM Top 10:2026)
+
+Berlaku jika project mengirim data ke model bahasa/visi atau menampilkan keluarannya. Layanan AI pihak ketiga juga tunduk pada bagian Dependency & integrasi.
+
+| Risiko | Aturan |
+|---|---|
+| LLM01 Prompt Injection | Input user dan konten eksternal (dokumen, halaman web, hasil retrieval) diperlakukan sebagai data, bukan instruksi: dipisah dari system prompt dengan pembatas yang jelas. Keputusan otorisasi dan aturan bisnis JANGAN diserahkan ke model. |
+| LLM02 Sensitive Information Disclosure / LLM08 Hidden Context Exposure | Kirim ke model hanya field yang dibutuhkan (minimisasi); JANGAN menaruh secret, kredensial, atau data user lain di prompt/system prompt. Anggap isi system prompt bisa bocor. |
+| LLM03 Excessive Agency | Model hanya boleh memanggil tool yang diperlukan, dengan izin pemanggil (bukan izin service), dan aksi yang mengubah data atau berbiaya butuh konfirmasi user atau validasi server. Rujuk Top 10 for Agentic Applications bila memakai agent. |
+| LLM04 Supply Chain / LLM05 Data and Model Poisoning | Model, SDK, dan dataset dari sumber resmi dengan versi tercatat; data untuk fine-tuning/RAG berasal dari sumber tepercaya dan bisa ditelusuri. |
+| LLM06 Unbounded Consumption | Batas panjang input/output, timeout, kuota per user per hari, dan batas biaya bulanan di sisi server. |
+| LLM07 Misinformation | Keluaran yang memengaruhi keputusan (kesehatan, keuangan, hukum) ditandai sebagai hasil AI, disertai disclaimer, dan tidak menggantikan keputusan profesional; tampilkan sumber bila memakai RAG. |
+| LLM09 Vector and Embedding Weaknesses | Index vektor dipisah/difilter per tenant atau per izin akses; retrieval menegakkan izin yang sama dengan data aslinya. |
+| LLM10 Improper Output Handling | Keluaran model divalidasi seperti input user sebelum dipakai: skema JSON dicek, teks di-escape sebelum dirender, JANGAN dieksekusi sebagai kode/SQL/perintah, URL di-allowlist. |
 
 ## Data pribadi & lingkungan (BU-10)
 
