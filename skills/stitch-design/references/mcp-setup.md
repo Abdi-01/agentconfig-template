@@ -1,22 +1,31 @@
-# Integrasi Stitch MCP
+# Integrasi Stitch (CLI resmi / MCP)
 
-Dibaca di Fase 5 saat user memilih jalur MCP. Berisi pengecekan integrasi (wajib setiap sesi), diagnosis masalah, dan panduan setup. Jalur manual (export zip) selalu tersedia sebagai cadangan; jangan memaksa MCP.
+Dibaca di Fase 5 saat user memilih jalur otomatis. Berisi urutan jalur yang disarankan untuk Claude Code, pengecekan integrasi (wajib setiap sesi), diagnosis masalah, dan panduan setup. Jalur manual (export zip dari canvas) selalu tersedia sebagai cadangan; jangan memaksa jalur otomatis.
 
-> Status sumber: endpoint dan nama tool berasal dari panduan komunitas dan laporan forum Google per Oktober 2026, bukan dokumentasi resmi yang terverifikasi. Selalu percayai **tool yang benar-benar terdaftar di sesi**, bukan daftar di file ini. Jika user menemukan dokumentasi resmi yang berbeda, ikuti dokumentasi itu dan usulkan pembaruan file ini.
+> **Status sumber (dicek 2026-10-15).** Paket `@google/stitch` v0.11.1 diterbitkan oleh Google Labs (repo `google-labs-code/stitch-sdk`, maintainer akun Google); perintah di bawah diambil dari README paket itu. Halaman resmi `stitch.withgoogle.com/docs/mcp/setup` belum bisa dibaca isinya dari lingkungan pembuat skill. Nama tool MCP dan bentuk output belum diuji pada akun nyata. Selalu percayai **perintah `--help`/`--schema` dan tool yang benar-benar terdaftar di sesi**, bukan file ini; jika berbeda, ikuti yang nyata dan usulkan pembaruan file ini.
+
+## Jalur
+
+| Jalur | Untuk Claude Code | Auth | Catatan |
+|---|---|---|---|
+| **C. CLI resmi** (`@google/stitch`) dipanggil lewat shell | **Default** | `stitch login` (OAuth di browser), plus `STITCH_API_KEY` jika diminta | Tidak butuh MCP sama sekali; agent menjalankan `stitch find … --json` / `stitch get … --json` |
+| **M. MCP stdio dari CLI resmi** (`stitch mcp start`) | Opsional, jika ingin tool MCP | sama dengan C | Server lokal; tidak ada header/token di config Claude Code |
+| R. MCP remote `https://stitch.googleapis.com/mcp` + header `X-Goog-Api-Key` | **Tidak disarankan** | API key di header | Dilaporkan gagal di Claude Code: header diabaikan, Claude Code mencoba OAuth lalu error *"Incompatible auth server: does not support dynamic client registration"* (issue #41664, ditutup "not planned"). Selain itu key tersimpan sebagai teks biasa di `~/.claude.json` |
+| P. Proxy komunitas (`@_davideast/stitch-mcp`) | Cadangan terakhir | gcloud | Kode pihak ketiga; hanya versi yang di-pin dan sudah ditinjau |
 
 ## Pengecekan integrasi (C1–C5)
 
 Jalankan berurutan. Berhenti di langkah pertama yang gagal, lalu buka bagian Diagnosis.
 
-| Langkah | Cara | Lolos jika |
-|---|---|---|
-| C1. Tool terdaftar | Cari tool berawalan `mcp__stitch__` (atau nama server lain yang memuat "stitch") di daftar tool sesi; jika ada tool pencarian tool (ToolSearch), cari kata "stitch" | Ada minimal tool untuk daftar project dan ambil layar |
-| C2. Server merespons | Panggil tool daftar project (mis. `list_projects`) | Tidak error koneksi/auth |
-| C3. Akun benar | Tampilkan nama project yang dikembalikan ke user, lalu tanya: "Project desain ini ada di daftar? Nama project di Stitch: …" | Project yang dipakai di Fase 3 ada di daftar |
-| C4. Layar terbaca | Panggil tool daftar layar (mis. `list_screens`) untuk project itu | Jumlah dan nama layar cocok dengan canvas Stitch |
-| C5. Aset bisa diambil | Panggil tool ambil layar (mis. `get_screen`) untuk satu layar | Ada HTML/kode atau URL aset yang bisa disimpan |
+| Langkah | Jalur C (CLI) | Jalur M (MCP) | Lolos jika |
+|---|---|---|---|
+| C1. Tersedia | `stitch --version` | Tool berawalan `mcp__stitch__` terdaftar di sesi (cari "stitch" lewat pencarian tool jika ada) | Versi tercetak / tool ada |
+| C2. Terautentikasi | `stitch status --json` | Panggil tool daftar project | Kredensial aktif, tanpa error auth |
+| C3. Akun benar | `stitch find projects --limit 20 --json` → tampilkan nama project ke user | sama, lewat tool | User mengonfirmasi project desain dari Fase 3 ada di daftar |
+| C4. Layar terbaca | `stitch find screen --project <id> --json` (cek opsi lewat `stitch find --help`) | tool daftar layar | Jumlah dan nama layar cocok dengan canvas |
+| C5. Aset terambil | `stitch get screen <screen-id> --project <id> --json` untuk satu layar | tool ambil layar | Ada HTML/kode atau URL aset yang bisa disimpan |
 
-Hasil cek dicatat di `docs/design/export/README.md` › Integrasi (jalur, tanggal, nama project Stitch, hasil C1–C5). **Jangan menulis email atau API key ke repo.** Cukup "akun pemilik project Stitch: pribadi/kantor".
+Hasil cek dicatat di `docs/design/export/README.md` › Integrasi (jalur, tanggal, nama project Stitch, hasil C1–C5). **Jangan menulis email, token, atau API key ke repo.** Cukup "akun pemilik project Stitch: pribadi/kantor".
 
 ⛔ Jika C1–C5 lolos: tampilkan ringkasannya ke user dan minta konfirmasi sebelum menyimpan file. Jika ada yang gagal: tampilkan diagnosis + panduan, dan tawarkan jalur manual sambil menunggu.
 
@@ -24,60 +33,68 @@ Hasil cek dicatat di `docs/design/export/README.md` › Integrasi (jalur, tangga
 
 | Gejala | Kemungkinan penyebab | Tindakan |
 |---|---|---|
-| C1: tidak ada tool stitch | MCP belum dipasang, dipasang di scope project lain, atau Claude Code belum direstart | Panduan setup › Langkah 1–3; cek `claude mcp list` di terminal |
-| C1: server terdaftar tapi status gagal di `/mcp` | Header/kredensial salah, atau proxy lokal tidak jalan | Ulangi pemasangan; lihat Jalur A/B |
-| C2: error "API keys are not supported" / meminta OAuth | Endpoint menolak API key untuk akun/region itu (dilaporkan di forum Google) | Pindah ke Jalur B (gcloud) |
-| C2: 401/403 | Key tidak valid, dicabut, atau Stitch API belum aktif di Google Cloud project | Buat key baru; aktifkan Stitch API (Jalur B langkah 3) |
-| C2 lolos, **C3: daftar kosong atau project tidak ada** | **Akun berbeda:** kredensial MCP milik akun Google lain dari akun yang login di stitch.withgoogle.com (mis. akun pribadi vs akun kantor/Workspace) | Lihat bagian Akun berbeda |
-| C3 lolos, C4 jumlah layar beda | Layar lama/duplikat belum dihapus, atau project Stitch berbeda dengan nama mirip | Minta user membersihkan canvas atau memilih project yang benar |
-| C5: tool generate/edit gagal, tool baca berhasil | Dilaporkan terjadi pada sebagian akun | Tidak masalah untuk skill ini: Fase 5 hanya butuh tool baca |
+| C1: `stitch: command not found` | CLI belum dipasang, atau dipasang dengan Node versi lain (nvm) | Setup › Langkah 1; cek `node -v` (≥20) |
+| C1 (MCP): tool tidak ada | Server belum didaftarkan di scope user, atau Claude Code belum direstart | Setup › Jalur M; `claude mcp list` |
+| C2: belum login / token kedaluwarsa | Belum `stitch login`, atau login di mesin lain | `stitch login`, lalu `stitch status` |
+| C2/C4: `MISSING_CANVAS_CREDENTIALS` | Sebagian operasi canvas butuh API key selain OAuth (keterbatasan yang disebut README CLI) | Buat API key Stitch dari akun yang sama, `export STITCH_API_KEY=…` di shell profile, buka terminal baru |
+| Jalur R: *"Incompatible auth server: does not support dynamic client registration"* | Claude Code mengabaikan header API key dan mencoba OAuth DCR | Hapus server remote (`claude mcp remove stitch`), pakai Jalur C atau M |
+| C2: 401 / `AUTH_FAILED` | Kredensial salah, dicabut, atau milik akun lain | `stitch logout` → `stitch login` dengan akun yang benar; buat ulang API key |
+| C2 lolos, **C3: daftar kosong atau project tidak ada** | **Akun berbeda:** login CLI/API key milik akun Google lain dari akun yang login di stitch.withgoogle.com | Lihat Akun berbeda |
+| C3 lolos, C4 jumlah layar beda | Layar lama/duplikat belum dihapus, atau project lain dengan nama mirip | Minta user membersihkan canvas atau memilih project yang benar |
+| C5: output tanpa HTML/aset | Bentuk output `get screen` berbeda dari dugaan | Cek `stitch get screen --help` / `--schema`; jika tetap tidak ada HTML, export manual untuk file HTML dan pakai CLI hanya untuk daftar layar |
 
 ## Akun berbeda
 
-Project Stitch milik akun Google yang sedang login di stitch.withgoogle.com. Kredensial MCP (API key atau login gcloud) harus berasal dari **akun yang sama**.
+Project Stitch milik akun Google yang sedang login di stitch.withgoogle.com. Login CLI (`stitch login`) dan API key harus berasal dari **akun yang sama**.
 
-Langkah memastikan:
-1. Di stitch.withgoogle.com, klik avatar kanan atas → catat email akun yang memiliki project desain.
-2. Jalur A (API key): buat ulang key dari pengaturan Stitch **sambil login dengan akun itu**.
-3. Jalur B (gcloud): di terminal, `gcloud auth list` → akun bertanda `*` harus sama. Jika beda: `gcloud auth application-default login` lalu pilih akun yang benar di browser.
-4. Jika project dibuat di akun lain dan tidak bisa dipindah: jalankan ulang pengecekan dengan kredensial akun itu, atau pakai jalur manual (export dari akun yang memiliki project).
+1. Di stitch.withgoogle.com, klik avatar kanan atas → catat akun yang memiliki project desain.
+2. `stitch status --json` → cocokkan akun yang aktif. Jika beda: `stitch logout`, lalu `stitch login` dan pilih akun yang benar di browser.
+3. API key (jika dipakai) dibuat ulang **sambil login dengan akun itu**.
+4. Jika project dibuat di akun lain dan tidak bisa dipindah: login dengan akun itu, atau pakai jalur manual (export dari akun pemilik).
 
-Peringatan untuk user: akun kantor (Google Workspace) bisa dibatasi admin untuk Stitch atau Google Cloud. Jika akun kantor ditolak, pilih salah satu akun dan buat ulang project desain di akun tersebut, atau tetap di jalur manual.
+Akun kantor (Google Workspace) bisa dibatasi admin untuk Stitch. Jika ditolak: pilih satu akun dan buat ulang project desain di sana, atau tetap di jalur manual.
 
 ## Panduan setup
 
-Pemasangan selalu di **scope user**, bukan `.mcp.json` repo, supaya kredensial tidak ikut ter-commit ke repo klien. Kredensial disimpan sebagai environment variable di shell profile, bukan di file repo.
+Prinsip: pasang di **scope user**, bukan `.mcp.json` repo; tidak ada kredensial di file repo maupun di config MCP. Versi paket di-pin; naikkan versi secara sadar setelah membaca changelog-nya.
 
-### Langkah 1 — Pilih jalur
+### Langkah 1 — CLI resmi (Jalur C)
 
-| Jalur | Kapan | Kelebihan | Risiko |
-|---|---|---|---|
-| A. Remote + API key | Default; coba dulu | Tanpa proxy lokal, satu perintah | Sebagian akun dilaporkan ditolak (minta OAuth) |
-| B. gcloud + proxy lokal | Jalur A ditolak | Memakai login Google akun yang jelas | Butuh Google Cloud CLI dan paket proxy komunitas (`@_davideast/stitch-mcp`); kode pihak ketiga masuk ke mesin |
+```bash
+npm install -g @google/stitch@0.11.1   # Node ≥20; versi yang ditinjau 2026-10-15
+stitch login                            # OAuth di browser, akun pemilik project Stitch
+stitch status
+stitch find projects --limit 10         # project desain harus muncul
+```
 
-### Jalur A — Remote + API key
+Jika muncul `MISSING_CANVAS_CREDENTIALS`: buat API key Stitch (pengaturan akun di stitch.withgoogle.com, akun yang sama), lalu di shell profile (`~/.zshrc` / `~/.bashrc`):
 
-1. Login stitch.withgoogle.com dengan akun pemilik project → pengaturan → buat API key Stitch. (Key Stitch berbeda dengan key Gemini API.)
-2. Simpan di shell profile (`~/.zshrc` / `~/.bashrc`): `export STITCH_API_KEY="…"`, lalu buka terminal baru.
-3. Pasang:
-   ```bash
-   claude mcp add --transport http --scope user stitch https://stitch.googleapis.com/mcp \
-     --header "X-Goog-Api-Key: $STITCH_API_KEY"
-   ```
-4. Restart Claude Code → `/mcp` → server `stitch` harus berstatus terhubung. Lalu jalankan C1–C5.
+```bash
+export STITCH_API_KEY="…"   # jangan commit file ini; buka terminal baru setelahnya
+```
 
-### Jalur B — gcloud + proxy lokal
+Selesai — Jalur C tidak butuh langkah lain. Jalankan C1–C5.
 
-1. Pasang Google Cloud CLI, lalu `gcloud auth application-default login` dengan akun pemilik project Stitch.
-2. Pilih Google Cloud project: `gcloud config set project <PROJECT_ID>` dan `gcloud auth application-default set-quota-project <PROJECT_ID>`.
-3. Aktifkan API: `gcloud services enable stitch.googleapis.com`.
-4. Tinjau paket proxy sebelum dipakai (repo, maintainer, versi). Pasang di scope user dengan env `STITCH_USE_SYSTEM_GCLOUD=1`, `GOOGLE_CLOUD_PROJECT=<PROJECT_ID>`, `DOTENV_QUIET=true`; perintah server: `npx -y @_davideast/stitch-mcp@latest proxy`.
-5. Restart Claude Code → `/mcp` → jalankan C1–C5.
+### Langkah 2 — MCP stdio (Jalur M, opsional)
 
-Jika keduanya gagal setelah diagnosis: pakai jalur manual. Desain tetap bisa dibawa ke repo tanpa MCP; MCP hanya mempercepat export.
+```bash
+claude mcp add --scope user stitch -- stitch mcp start
+```
+
+Server berjalan sebagai proses lokal dan mewarisi environment shell yang menjalankan Claude Code, sehingga `STITCH_API_KEY` tidak perlu (dan jangan) ditulis ke config. README CLI juga menyediakan `stitch mcp install`; jika memakainya, cek dengan `claude mcp list` bahwa server terdaftar di scope user, bukan di file project. Restart Claude Code → `/mcp` → jalankan C1–C5.
+
+### Cadangan — proxy komunitas (Jalur P)
+
+Hanya jika Jalur C/M gagal setelah diagnosis. Tinjau repo dan isi paket lebih dulu; pakai versi tetap, bukan `@latest`:
+
+```bash
+npx @_davideast/stitch-mcp@0.9.0 init   # versi yang ada di npm per 2026-10-15; tinjau sebelum dipakai
+```
+
+Ikuti instruksi `init`-nya (gcloud ADC), daftarkan di scope user, lalu C1–C5.
 
 ## Setelah integrasi lolos
 
-- Untuk setiap layar `UI-xx` berstatus Final di `screens.md`: ambil lewat tool ambil layar, simpan HTML/kode ke `docs/design/export/batch-N/UI-xx-<slug>.html` dan gambar ke `.png` jika tersedia. Ambil juga design system/DESIGN.md jika tool menyediakannya; jika tidak, minta user export DESIGN.md manual.
+- Untuk setiap layar `UI-xx` berstatus Final di `screens.md`: ambil layar (CLI `get screen` atau tool MCP), simpan HTML/kode ke `docs/design/export/batch-N/UI-xx-<slug>.html` dan gambar ke `.png` jika tersedia. Ambil design system jika tersedia (`stitch find design-system …`); jika tidak, minta user export DESIGN.md manual.
 - Pemetaan layar Stitch → `UI-xx` berdasarkan nama layar; yang tidak cocok ditanyakan ke user, jangan ditebak.
-- Skill ini **hanya memakai tool baca**. Tool generate/edit tidak dipakai: setiap batch tetap direview user di canvas.
+- Skill ini **hanya memakai operasi baca** (`find`, `get`, tool daftar/ambil). `generate`, `edit`, `create`, `delete`, `upload`, dan `capture` tidak dipakai: setiap batch tetap dibuat dan direview user di canvas.

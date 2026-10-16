@@ -1,5 +1,14 @@
 # Changelog — stitch-design
 
+## v0.2.1 — 2026-10-15
+
+Perbaikan hasil review.
+
+- **Jalur export otomatis dirombak** (`references/mcp-setup.md`). Default untuk Claude Code sekarang **CLI resmi Google `@google/stitch`** (v0.11.1, di-pin; login OAuth `stitch login`) yang dipanggil lewat shell, dengan opsi MCP stdio `stitch mcp start`. MCP remote `stitch.googleapis.com/mcp` + header `X-Goog-Api-Key` tidak disarankan: dilaporkan gagal di Claude Code (*"Incompatible auth server: does not support dynamic client registration"*, issue #41664) dan menyimpan key sebagai teks biasa di `~/.claude.json`. Proxy komunitas turun menjadi cadangan terakhir dengan versi di-pin (`0.9.0`), bukan `@latest`. Pengecekan C1–C5 dan diagnosis diperbarui (termasuk `MISSING_CANVAS_CREDENTIALS` dan error DCR).
+- **Dua profil layar.** `page`/`modal` = profil dashboard (blok **Simplicity rules**, seperti sebelumnya); `public` = profil publik (blok baru **Public page rules**: boleh hero, galeri, dan komponen yang dituntut FR, tanpa section karangan). Satu batch = satu profil. `check-design` mewajibkan blok sesuai profil dan memberi warning untuk batch campuran.
+- Contoh di SKILL, template, dan checklist dibuat generik (tidak lagi memakai istilah satu domain).
+- `check-design`: pengecualian layar login juga mengenali "Masuk", "Sign in", "Daftar", "Register".
+
 ## v0.2 — 2026-10-15
 
 - Fase 5: pilihan jalur export **manual** (default) atau **MCP**.

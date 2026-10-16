@@ -4,9 +4,9 @@ Dibaca di Fase 4. Bandingkan screenshot dengan baris layar di `screens.md` dan F
 
 ## Buang (tidak ada di PRD)
 
-- Alur yang bertentangan dengan keputusan PRD (mis. student booking sendiri padahal mentor yang membuat slot; tombol Accept/auto-accept).
+- Alur yang bertentangan dengan keputusan PRD (mis. customer bisa memesan sendiri padahal PRD menyatakan staf yang membuat jadwal; tombol auto-approve yang tidak ada di FR).
 - Angka/aturan karangan (minimum jam, target, skor) yang tidak ada di PRD/SOP.
-- Data milik role lain yang tidak berhak dilihat (cocokkan §8; contoh: nominal honor di layar mentor).
+- Data milik role lain yang tidak berhak dilihat (cocokkan §8; contoh: harga modal atau data pasien lain di layar customer).
 - Notifikasi, chat, pencarian global, pengaturan profil, dark mode toggle — kecuali ada FR-nya.
 - Data dari layar lain yang ikut tercampur (mis. jadwal sesi di halaman availability).
 
@@ -19,9 +19,18 @@ Dibaca di Fase 4. Bandingkan screenshot dengan baris layar di `screens.md` dan F
 
 ## Sederhanakan
 
+Profil dashboard (`page`/`modal`):
+
+
 - Lebih dari satu tombol utama, atau tombol sekunder yang tidak dipakai FR (Reset, Export ganda).
 - Tabel >6 kolom; kalender/grid jam; legend; breadcrumb; banner penjelasan aturan; badge dekoratif.
 - Kartu bertumpuk di dalam kartu; ringkasan yang mengulang isi tabel.
+
+Profil publik (`public`):
+
+- Section karangan: testimoni, paket harga, newsletter, chat widget, statistik, FAQ — kecuali ada di PRD.
+- Lebih dari satu CTA utama per section; CTA yang tidak mengarah ke FR (mis. "Download app" tanpa app).
+- Teks lorem ipsum atau klaim marketing yang tidak diberikan klien.
 
 ## Konsistensi
 
