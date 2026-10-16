@@ -57,6 +57,8 @@ node $SKILL_DIR/scripts/scaffold.mjs --target <repo> --type <frontend-web|backen
 
 Periksa rencananya, lalu jalankan tanpa `--dry-run`. Script tidak menimpa file `project/` yang sudah ada dan mencadangkan AGENTS.md/CLAUDE.md lama ke `agentconfig/_audit/legacy/`.
 
+Agent lain: script juga membuat `.github/copilot-instructions.md` (GitHub Copilot) berisi rujukan ke `AGENTS.md` + salinan blok **Aturan kritis** (`--agents none` untuk melewati; file lama dicadangkan). Cline membaca `AGENTS.md` langsung. Jika ada `.cursorrules`/`.windsurfrules`/`.clinerules`/`GEMINI.md` berisi aturan sendiri, pindahkan aturannya ke `agentconfig/` dan ganti isinya dengan rujukan ke `AGENTS.md` (⛔ tanyakan user dulu). Setiap kali blok Aturan kritis di `AGENTS.md` diubah: `scaffold.mjs --target <repo> --mode agent-files`.
+
 Jika `.gitignore` mengabaikan `AGENTS.md`, `CLAUDE.md`, atau `agentconfig/`: ⛔ tanyakan user sebelum mengubah `.gitignore`.
 
 ## Langkah 4 — Isi project/ dan AGENTS.md

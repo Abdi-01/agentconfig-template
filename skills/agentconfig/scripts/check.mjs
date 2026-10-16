@@ -31,6 +31,22 @@ if (exists(path.join(target, "AGENTS.md"))) {
   if (lines > 100) errors.push(`AGENTS.md ${lines} baris (maks. 100 di luar blok framework).`);
 }
 
+// 3b. Blok aturan kritis dan salinannya untuk agent lain.
+const CRITICAL = /<!-- BEGIN:agentconfig-critical -->[\s\S]*?<!-- END:agentconfig-critical -->/;
+const agentsBlock = exists(path.join(target, "AGENTS.md")) ? (read("AGENTS.md").match(CRITICAL) || [])[0] : null;
+if (exists(path.join(target, "AGENTS.md")) && !agentsBlock) warnings.push("AGENTS.md belum punya blok aturan kritis (template v0.6.0) — salin dari templates/root/AGENTS.md.tmpl.");
+const copilot = ".github/copilot-instructions.md";
+if (exists(path.join(target, copilot))) {
+  const copy = (read(copilot).match(CRITICAL) || [])[0];
+  if (!copy) warnings.push(`${copilot} tidak memuat blok aturan kritis — jalankan scaffold.mjs --mode agent-files.`);
+  else if (agentsBlock && copy !== agentsBlock) errors.push(`${copilot} berbeda dari blok aturan kritis di AGENTS.md — jalankan scaffold.mjs --mode agent-files.`);
+}
+// Cline juga membaca .cursorrules/.windsurfrules; aturan di sana bisa bertentangan dengan AGENTS.md.
+for (const f of [".cursorrules", ".windsurfrules", ".clinerules", "GEMINI.md"]) {
+  const p = path.join(target, f);
+  if (exists(p) && fs.statSync(p).isFile() && !/AGENTS\.md/.test(fs.readFileSync(p, "utf8"))) warnings.push(`${f} berisi aturan sendiri tanpa merujuk AGENTS.md — pindahkan aturannya ke agentconfig/ dan isi file ini dengan rujukan ke AGENTS.md.`);
+}
+
 // 4. standards/ identik dengan template.
 const srcStd = path.join(TEMPLATES, "agentconfig", "standards");
 const dstStd = path.join(target, "agentconfig", "standards");

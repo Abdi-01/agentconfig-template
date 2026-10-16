@@ -24,10 +24,11 @@ The full lifecycle — phases, artifacts, exit gates, and S/M/L project profiles
 4. [Quick start](#4-quick-start)
 5. [Skill guides](#5-skill-guides) — [prd-writer](#51-prd-writer) · [agentconfig](#52-agentconfig) · [stitch-design](#53-stitch-design) · [figma-design](#54-figma-design) · [delivery-plan](#55-delivery-plan)
 6. [Shared conventions](#6-shared-conventions)
-7. [Using the scripts without Claude Code](#7-using-the-scripts-without-claude-code)
-8. [Maintaining the templates](#8-maintaining-the-templates)
-9. [Troubleshooting](#9-troubleshooting)
-10. [Repository layout](#10-repository-layout)
+7. [Using other coding agents](#7-using-other-coding-agents)
+8. [Using the scripts without Claude Code](#8-using-the-scripts-without-claude-code)
+9. [Maintaining the templates](#9-maintaining-the-templates)
+10. [Troubleshooting](#10-troubleshooting)
+11. [Repository layout](#11-repository-layout)
 
 ---
 
@@ -197,6 +198,7 @@ Every skill follows the same pattern: **detect → ask → write a skeleton with
 - **Simplicity first** (`coding-style.md`, `TU-01`–`TU-06`): state the approach before coding; stop and propose if a change touches >5 files or >~200 lines for one requirement; no unrequested options or abstractions; reuse before writing; size limits; efficient without premature optimization.
 - **Security** (`security.md`, `testing/security.md`): OWASP Top 10:2025, API Security Top 10:2023, ASVS 5.0, WSTG; OWASP LLM Top 10:2026 and Agentic Top 10 when the product uses AI; a threat model per critical flow; security tests named by category.
 - **Definition of Done**: type-check, lint, full test suite, build when needed, manual verification, simplicity review of the diff, docs updated.
+- **Critical rules** in `AGENTS.md`: the 7 rules every agent must see even if it never opens the sub-files; copied to `.github/copilot-instructions.md` for Copilot (see [section 7](#7-using-other-coding-agents)).
 
 **Scripts** (run from the repo root; `S=~/.claude/skills/agentconfig/scripts`)
 
@@ -206,6 +208,7 @@ node $S/scaffold.mjs --target . --type fullstack --repo-name my-app --dry-run   
 node $S/scaffold.mjs --target . --type fullstack --repo-name my-app
 node $S/scaffold.mjs --target . --mode sync --dry-run                           # sync preview
 node $S/scaffold.mjs --target . --mode sync --force                             # after reviewing conflicts
+node $S/scaffold.mjs --target . --mode agent-files                             # rewrite .github/copilot-instructions.md from AGENTS.md
 node $S/check.mjs    --target .
 ```
 
@@ -301,13 +304,27 @@ node $D/to-issues.mjs  --repo owner/repo --apply    # create issues
 
 ---
 
-## 7. Using the scripts without Claude Code
+## 7. Using other coding agents
+
+The files the skills produce are plain Markdown, so other agents can work in the same repo:
+
+| Agent | What it reads | Set up by `agentconfig` |
+|---|---|---|
+| Claude Code | `CLAUDE.md` → `@AGENTS.md` | `CLAUDE.md` |
+| Cline | `AGENTS.md` directly (also `.clinerules/`, `.cursorrules`, `.windsurfrules`) | nothing extra |
+| GitHub Copilot | `.github/copilot-instructions.md` (most reliable across Copilot features) | `.github/copilot-instructions.md`: pointer to `AGENTS.md` + a copy of the **Critical rules** block |
+
+- The **Critical rules** block in `AGENTS.md` (7 rules: read the referenced docs, simplest code, server-side authorization and no secrets, no risky DB operations without confirmation, don't edit `standards/`, run the Definition of Done, stop at every ⛔) is the single source. After editing it, run `node ~/.claude/skills/agentconfig/scripts/scaffold.mjs --target . --mode agent-files`; `check.mjs` fails if the Copilot copy drifts.
+- Keep one set of rules per repo: `check.mjs` warns when `.cursorrules`, `.windsurfrules`, `.clinerules`, or `GEMINI.md` contain their own rules instead of pointing to `AGENTS.md`. In Cline, make sure the `AGENTS.md` rule is toggled on in the Rules panel.
+- The skills themselves (`SKILL.md` flows) are written for Claude Code. In other agents, ask: *"Read `~/.claude/agentconfig-template/skills/<skill>/SKILL.md` and follow it step by step, stopping at every ⛔."* Slash commands like `/agentconfig` won't exist there, and some agents tend to skip stops — remind them.
+
+## 8. Using the scripts without Claude Code
 
 All scripts are plain Node (≥18) with no dependencies, so other agents or humans can run them directly — see the command blocks in each skill guide above. The `<!-- AI: … -->` markers in generated skeletons describe what to write in each section; `check*.mjs` fails while any marker remains.
 
 ---
 
-## 8. Maintaining the templates
+## 9. Maintaining the templates
 
 1. Edit files under `skills/<skill>/` (standards live in `skills/agentconfig/templates/agentconfig/standards/`). New rules should come from a real audit or an explicit decision.
 2. If standards changed: `node skills/agentconfig/scripts/build-registry.mjs`.
@@ -318,7 +335,7 @@ Adding a new skill: create `skills/<name>/SKILL.md` (+ `VERSION`, `CHANGELOG.md`
 
 ---
 
-## 9. Troubleshooting
+## 10. Troubleshooting
 
 | Problem | Fix |
 |---|---|
@@ -326,6 +343,7 @@ Adding a new skill: create `skills/<name>/SKILL.md` (+ `VERSION`, `CHANGELOG.md`
 | Installer prints "clone lama" warning | Remove the old `~/.claude/skills/agentconfig` clone, rerun `install.sh` |
 | `scaffold` says `agentconfig/standards/` already exists | Use sync mode instead of init |
 | Sync reports conflicts | Expected for repos created before `.template-lock.json` or after a standards change; review the diff, move any intentional local rule to `project/decisions.md`, then rerun with `--force` |
+| `check.mjs` says the Copilot instructions differ from `AGENTS.md` | Run `scaffold.mjs --target . --mode agent-files` |
 | `check.mjs` fails on `<!-- AI:` markers | Ask Claude to finish filling the listed files |
 | `AGENTS.md`/`agentconfig/` ignored by git | Remove the matching lines from `.gitignore` (the skill asks before touching it) |
 | Stitch export error *"Incompatible auth server: does not support dynamic client registration"* | Don't use the remote Stitch MCP with an API key; use the official CLI path in `mcp-setup.md` |
@@ -333,7 +351,7 @@ Adding a new skill: create `skills/<name>/SKILL.md` (+ `VERSION`, `CHANGELOG.md`
 
 ---
 
-## 10. Repository layout
+## 11. Repository layout
 
 ```
 README.md            this guide

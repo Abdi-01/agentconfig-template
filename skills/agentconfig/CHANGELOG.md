@@ -2,6 +2,17 @@
 
 Riwayat versi `templates/agentconfig/standards/` dan kerangka `project/`. Setiap versi menyebut apa yang perlu dilakukan di repo saat sync.
 
+## v0.6.0 — 2026-10-16
+
+Dukungan multi-agent (GitHub Copilot, Cline). `standards/` tidak berubah.
+
+- `AGENTS.md.tmpl`: bagian **Aturan kritis** (7 aturan: baca rujukan, kode paling sederhana, otorisasi/secret, tanpa operasi DB berisiko, standards tidak diedit, DoD, berhenti di ⛔) di antara penanda `agentconfig-critical`, menggantikan baris "Prinsip kode". Aturan ini terbaca walaupun agent tidak membuka sub-file.
+- `scaffold.mjs`: init membuat `.github/copilot-instructions.md` (rujukan ke `AGENTS.md` + salinan blok Aturan kritis; `--agents none` untuk melewati; file lama dicadangkan). Mode baru `--mode agent-files` menulis ulang file itu dari `AGENTS.md`.
+- `check.mjs`: error jika salinan Copilot berbeda dari blok di `AGENTS.md`; warning jika `AGENTS.md` belum punya blok, atau `.cursorrules`/`.windsurfrules`/`.clinerules`/`GEMINI.md` berisi aturan sendiri tanpa merujuk `AGENTS.md` (Cline ikut membaca `.cursorrules`/`.windsurfrules`).
+- `lib.mjs`: blok `agentconfig-*` tidak dianggap blok framework.
+
+**Saat sync dari v0.5.x:** tidak ada konflik `standards/`. Di `AGENTS.md` repo: ganti baris "Prinsip kode" dengan bagian **Aturan kritis** dari `templates/root/AGENTS.md.tmpl` (sesuaikan aturan 4 jika repo punya peringatan database khusus), lalu jalankan `scaffold.mjs --target . --mode agent-files`.
+
 ## v0.5.0 — 2026-10-16
 
 OWASP diterapkan di seluruh siklus, bukan hanya saat coding.

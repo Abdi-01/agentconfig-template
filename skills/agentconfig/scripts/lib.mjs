@@ -81,7 +81,8 @@ export function runScript(pm, name) {
 }
 
 // Blok yang ditulis otomatis oleh framework (mis. `next dev`) di AGENTS.md.
-const FRAMEWORK_BLOCK = /<!-- BEGIN:([\w-]+) -->[\s\S]*?<!-- END:\1 -->/g;
+// Blok milik template sendiri (`agentconfig-*`) bukan blok framework.
+const FRAMEWORK_BLOCK = /<!-- BEGIN:((?!agentconfig-)[\w-]+) -->[\s\S]*?<!-- END:\1 -->/g;
 
 export function frameworkBlocks(text) {
   return text ? [...text.matchAll(FRAMEWORK_BLOCK)].map((m) => m[0]) : [];
